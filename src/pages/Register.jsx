@@ -37,7 +37,7 @@ const Stwrap = styled.div`
   background-size: cover;
 `;
 const Title = styled.div`
-  font-size: 100px;
+  font-size: 80px;
 `;
 const Container = styled.div`
   color: white;
@@ -47,11 +47,15 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
   text-align: center;
   font-size: 20px;
+  border: 3px solid white;
+  padding: 50px;
 `;
 const Input = styled.input`
   border-radius: 30px;
   width: 300px;
   height: 40px;
+  background-color: white;
+  color: black;
 `;
 const Btn = styled.button`
   width: 300px;

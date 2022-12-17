@@ -1,27 +1,27 @@
 import React from "react";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Login = () => {
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div>
       <Stwrap>
         <Container>
-          <Title>로그인</Title>
+          <Title>
+            <img src="/image/logo.png" className="headerLogo" />
+            <div>LogIn</div>
+          </Title>
           <p>ID</p>
           <Input></Input>
+
           <p>PW </p>
-          <Input></Input>
-          <p>CHECK PW </p>
-          <Input></Input>
-          <p>NICKNAME</p>
           <p>
             <Input></Input>
           </p>
-          <Btn>Sign Up</Btn>
           <Btn>Log In</Btn>
+          <Btn>Sign Up</Btn>
         </Container>
       </Stwrap>
     </div>
@@ -38,7 +38,12 @@ const Stwrap = styled.div`
   background-size: cover;
 `;
 const Title = styled.div`
-  font-size: 100px;
+  font-size: 80px;
+  font-weight: lighter;
+  margin-bottom: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const Container = styled.div`
   color: white;
@@ -48,14 +53,21 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
   text-align: center;
   font-size: 20px;
+  border: 3px solid white;
+  padding: 50px;
 `;
 const Input = styled.input`
   border-radius: 30px;
-  width: 300px;
+  width: 350px;
   height: 40px;
+  box-shadow: 1px gray;
+  outline: none;
+  background-color: white;
+  font-size: 20px;
+  color: black;
 `;
 const Btn = styled.button`
-  width: 200px;
+  width: 170px;
   height: 40px;
   background-color: transparent;
   color: white;
