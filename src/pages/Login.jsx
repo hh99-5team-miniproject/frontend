@@ -1,15 +1,15 @@
 import React from "react";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Login = () => {
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div>
       <Stwrap>
         <Container>
-          <Title>로그인</Title>
+          <Title>LogIn</Title>
           <p>ID</p>
           <Input></Input>
           <p>PW </p>
@@ -38,7 +38,8 @@ const Stwrap = styled.div`
   background-size: cover;
 `;
 const Title = styled.div`
-  font-size: 100px;
+  font-size: 80px;
+  font-weight: lighter;
 `;
 const Container = styled.div`
   color: white;
@@ -53,6 +54,11 @@ const Input = styled.input`
   border-radius: 30px;
   width: 300px;
   height: 40px;
+  box-shadow: 1px gray;
+  outline: none;
+  background-color: white;
+  font-size: 20px;
+  color: black;
 `;
 const Btn = styled.button`
   width: 200px;

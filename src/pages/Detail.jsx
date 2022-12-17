@@ -1,9 +1,9 @@
 import React from "react";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Detail = () => {
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -29,6 +29,7 @@ const Stwrap = styled.div`
   width: 100%;
   height: 100%;
   background-size: cover;
+  margin-top: 120px;
 `;
 const Title = styled.div`
   font-size: 50px;
@@ -59,7 +60,7 @@ const Text = styled.div`
 `;
 const Stbtn = styled.button`
   color: white;
-  background-color: #8c168c;
+  background-color: transparent;
   width: 300px;
   height: 70px;
   margin-top: 30px;
@@ -74,6 +75,7 @@ const Stbtn = styled.button`
 `;
 const Btn = styled.div`
   margin-left: 560px;
+  margin-bottom: 50px;
 `;
 
 export default Detail;
