@@ -9,19 +9,19 @@ const Login = () => {
     <div>
       <Stwrap>
         <Container>
-          <Title>LogIn</Title>
+          <Title>
+            <img src="/image/logo.png" className="headerLogo" />
+            <div>LogIn</div>
+          </Title>
           <p>ID</p>
           <Input></Input>
+
           <p>PW </p>
-          <Input></Input>
-          <p>CHECK PW </p>
-          <Input></Input>
-          <p>NICKNAME</p>
           <p>
             <Input></Input>
           </p>
-          <Btn>Sign Up</Btn>
           <Btn>Log In</Btn>
+          <Btn>Sign Up</Btn>
         </Container>
       </Stwrap>
     </div>
@@ -40,6 +40,10 @@ const Stwrap = styled.div`
 const Title = styled.div`
   font-size: 80px;
   font-weight: lighter;
+  margin-bottom: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const Container = styled.div`
   color: white;
@@ -49,10 +53,12 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
   text-align: center;
   font-size: 20px;
+  border: 3px solid white;
+  padding: 50px;
 `;
 const Input = styled.input`
   border-radius: 30px;
-  width: 300px;
+  width: 350px;
   height: 40px;
   box-shadow: 1px gray;
   outline: none;
@@ -61,7 +67,7 @@ const Input = styled.input`
   color: black;
 `;
 const Btn = styled.button`
-  width: 200px;
+  width: 170px;
   height: 40px;
   background-color: transparent;
   color: white;
