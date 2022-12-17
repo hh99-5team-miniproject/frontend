@@ -1,0 +1,23 @@
+.main {
+  padding-left: 30px;
+}
+.bestCards {
+  display: flex;
+}
+.bestCard {
+  width: 310px;
+  /* border: 3px solid gray; */
+  border-radius: 20px;
+  margin-right: 40px;
+}
+.bestCardInfo {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.category {
+  margin-top: 70px;
+}
+.categoryBtn > img {
+  width: 250px;
+}

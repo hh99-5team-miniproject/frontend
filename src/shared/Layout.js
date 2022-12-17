@@ -1,12 +1,5 @@
 import React from "react";
-
-function Header() {
-  return (
-    <div>
-      <span>나는 헤더에요......</span>
-    </div>
-  );
-}
+import Header from "../components/Header";
 
 function Layout({ children }) {
   return (
