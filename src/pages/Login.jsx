@@ -39,7 +39,6 @@ const Stwrap = styled.div`
 `;
 const Title = styled.div`
   font-size: 80px;
-  font-weight: lighter;
   margin-bottom: 70px;
   display: flex;
   justify-content: center;
