@@ -3,7 +3,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./Layout";
 import Home from "../pages/home/Home";
-import Category from "../pages/Category";
+import Category from "../pages/category/Category";
 import Detail from "../pages/Detail";
 import Login from "../pages/Login";
 import Post from "../pages/Post";
@@ -19,6 +19,7 @@ const Router = () => {
           <Route path="/" element={<Home />} />
           <Route path="/detail/:id" element={<Detail />} />
           <Route path="/post/:id" element={<Post />} />
+          <Route path="/category/:id" element={<Category />} />
         </Routes>
       </Layout>
     </BrowserRouter>

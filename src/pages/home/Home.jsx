@@ -7,7 +7,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="main">
+    <div className="homeMain">
       <div className="category">
         <h2>상황에 맞는 음악을 추천해드려요🎶</h2>
         <div className="categoryBtns">
@@ -24,19 +24,36 @@ const Home = () => {
           >
             잠깨고 싶을 때
           </div> */}
-          <CategoryBtn imgUrl="/image/집중하고 싶을 때.png">
+          <CategoryBtn
+            imgUrl="/image/집중하고 싶을 때.png"
+            onClick={() => navigate("/category/집중하고 싶을 때 좋은 노래")}
+          >
             집중하고 싶을 때
           </CategoryBtn>
-          <CategoryBtn imgUrl="/image/잠깨우고 싶을 때.png">
+          <CategoryBtn
+            imgUrl="/image/잠깨우고 싶을 때.png"
+            onClick={() => navigate("/category/잠깨고 싶을 때 좋은 노래")}
+          >
             잠깨고 싶을 때
           </CategoryBtn>
-          <CategoryBtn imgUrl="/image/에러가 뜰 때.png">
+          <CategoryBtn
+            imgUrl="/image/에러가 뜰 때.png"
+            onClick={() => navigate("/category/에러가 뜰 때 좋은 노래")}
+          >
             에러가 뜰 때
           </CategoryBtn>
-          <CategoryBtn imgUrl="/image/TIL쓸 때.png">
+          <CategoryBtn
+            imgUrl="/image/TIL쓸 때.png"
+            onClick={() => navigate("/category/TIL or WIL 작성할 때 좋은 노래")}
+          >
             TIL/WIL 작성할 때
           </CategoryBtn>
-          <CategoryBtn imgUrl="/image/팀원과 트러블이 있을 때.png">
+          <CategoryBtn
+            imgUrl="/image/팀원과 트러블이 있을 때.png"
+            onClick={() =>
+              navigate("/category/팀원과 트러블 있을 때 좋은 노래")
+            }
+          >
             팀원과 트러블 있을 때
           </CategoryBtn>
         </div>
