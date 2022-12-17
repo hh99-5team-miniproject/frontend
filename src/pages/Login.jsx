@@ -57,16 +57,18 @@ const Input = styled.input`
 const Btn = styled.button`
   width: 200px;
   height: 40px;
-  background-color: #8c168c;
+  background-color: transparent;
   color: white;
+  border: 3px solid white;
   margin-top: 20px;
   margin-right: 10px;
   margin-left: 10px;
   border-radius: 30px;
   font-size: 20px;
   &:hover {
-    background-color: #e9c4f3;
-    color: #8c168c;
+    background-color: blueviolet;
+    color: white;
+    border: none;
   }
 `;
 
