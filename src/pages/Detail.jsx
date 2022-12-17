@@ -1,20 +1,23 @@
 import React from "react";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Detail = () => {
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <Stwrap>
       <Title>제목</Title>
       <Videoarea>유투브영상</Videoarea>
-      <Heart>♡ like</Heart>
+
       <Text></Text>
-      <Btn>
-        <Stbtn>수정</Stbtn>
-        <Stbtn>삭제</Stbtn>
-      </Btn>
+      <Btns>
+        <Heart>❤️ 10</Heart>
+        <Btn>
+          <Stbtn>수정</Stbtn>
+          <Stbtn>삭제</Stbtn>
+        </Btn>
+      </Btns>
     </Stwrap>
   );
 };
@@ -24,19 +27,22 @@ const Stwrap = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
   height: 100%;
   background-size: cover;
   margin-top: 180px;
+  display: grid;
+  place-items: center;
 `;
+
 const Title = styled.div`
   font-size: 50px;
   color: white;
   margin-bottom: 20px;
+  text-align: center;
 `;
 const Videoarea = styled.div`
-  width: 1200px;
-  height: 600px;
+  width: 1000px;
+  height: 500px;
   background-color: transparent;
   border: 1px solid grey;
   color: white;
@@ -44,11 +50,12 @@ const Videoarea = styled.div`
 const Heart = styled.div`
   color: white;
   font-size: 30px;
+  margin-right: 900px;
 `;
 const Text = styled.div`
-  width: 1200px;
+  width: 1000px;
   height: 300px;
-  border: 1px solid white;
+  border: 1px solid grey;
   margin-top: 20px;
   background-color: transparent;
   text-underline-offset: inherit;
@@ -58,21 +65,29 @@ const Text = styled.div`
 `;
 const Stbtn = styled.button`
   color: white;
-  background-color: #8c168c;
-  width: 300px;
-  height: 70px;
+  background-color: transparent;
+  border: 3px solid white;
+  width: 200px;
+  height: 60px;
   margin-top: 30px;
   margin-left: 20px;
   border-radius: 30px;
   font-size: 20px;
   font-weight: bold;
   &:hover {
-    background-color: #e9c4f3;
-    color: #8c168c;
+    background-color: blueviolet;
+    color: white;
+    border: none;
   }
 `;
 const Btn = styled.div`
-  margin-left: 560px;
+  margin-left: 500px;
+  margin-bottom: 50px;
+`;
+const Btns = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default Detail;
