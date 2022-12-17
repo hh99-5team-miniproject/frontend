@@ -1,9 +1,9 @@
 import React from "react";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Register = () => {
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div>
