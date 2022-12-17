@@ -6,18 +6,16 @@ const Detail = () => {
   //const navigate = useNavigate();
 
   return (
-    <div>
-      <Stwrap>
-        <Title>제목</Title>
-        <Videoarea>유투브영상</Videoarea>
-        <Heart>♡ like</Heart>
-        <Text></Text>
-        <Btn>
-          <Stbtn>수정</Stbtn>
-          <Stbtn>삭제</Stbtn>
-        </Btn>
-      </Stwrap>
-    </div>
+    <Stwrap>
+      <Title>제목</Title>
+      <Videoarea>유투브영상</Videoarea>
+      <Heart>♡ like</Heart>
+      <Text></Text>
+      <Btn>
+        <Stbtn>수정</Stbtn>
+        <Stbtn>삭제</Stbtn>
+      </Btn>
+    </Stwrap>
   );
 };
 
@@ -29,6 +27,7 @@ const Stwrap = styled.div`
   width: 100%;
   height: 100%;
   background-size: cover;
+  margin-top: 180px;
 `;
 const Title = styled.div`
   font-size: 50px;
