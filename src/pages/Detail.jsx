@@ -1,9 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Review from "../components/review";
+import { useState } from "react";
 
 const Detail = () => {
   const navigate = useNavigate();
+  const [visible, setVisible] = useState(false);
 
   return (
     <Stwrap>
@@ -18,16 +21,21 @@ const Detail = () => {
           <Stbtn>삭제</Stbtn>
         </Btn>
       </Btns>
-      <Review>💕 댓글 List</Review>
-      <Writebtn>작성하기</Writebtn>
+      <Reviews>💕 댓글 List</Reviews>
+      <Writebtn
+        onClick={() => {
+          setVisible(!visible);
+        }}
+      >
+        작성하기
+      </Writebtn>
+      <Div>
+        <Input></Input>
+        <Input></Input>
+      </Div>
 
-      <Input></Input>
-      <Input></Input>
-      <Reviewtext></Reviewtext>
-      <Upbtns>
-        <Upload>등록하기</Upload>
-        <Upload>취소하기</Upload>
-      </Upbtns>
+      {visible && <Review />}
+      {/* visible이 true이면 review 컴포넌트가 보여짐. */}
     </Stwrap>
   );
 };
@@ -44,6 +52,9 @@ const Stwrap = styled.div`
   margin: 180px auto;
   display: grid;
   place-items: center;
+`;
+const Div = styled.div`
+  margin-bottom: 20px;
 `;
 
 const Title = styled.div`
@@ -100,7 +111,7 @@ const Btns = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const Review = styled.div`
+const Reviews = styled.div`
   font-size: 30px;
   margin-bottom: 30px;
 `;
@@ -129,33 +140,5 @@ const Input = styled.div`
   outline: none;
   margin-bottom: 20px;
 `;
-const Reviewtext = styled.textarea`
-  width: 1000px;
-  height: 300px;
-  resize: none;
-  background-color: white;
-  color: black;
-  border-radius: 20px;
-  font-size: 20px;
-  outline: none;
-  margin-bottom: 50px;
-`;
-const Upload = styled.button`
-  width: 200px;
-  height: 50px;
-  border-radius: 30px;
-  border: 3px solid white;
-  background-color: transparent;
-  color: white;
-  &:hover {
-    background-color: blueviolet;
-    border: none;
-    color: white;
-  }
-  margin-bottom: 40px;
-  margin-left: 20px;
-  margin-top: -40px;
-`;
-const Upbtns = styled.p``;
 
 export default Detail;
