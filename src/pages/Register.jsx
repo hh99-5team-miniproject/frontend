@@ -9,7 +9,10 @@ const Register = () => {
     <div>
       <Stwrap>
         <Container>
-          <Title>회원가입</Title>
+          <Title>
+            <img src="/image/logo.png" className="headerLogo" />
+            <div>Sign Up</div>
+          </Title>
           <p>ID</p>
           <Input></Input>
           <p>PW </p>
@@ -37,7 +40,10 @@ const Stwrap = styled.div`
   background-size: cover;
 `;
 const Title = styled.div`
-  font-size: 80px;
+  font-size: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const Container = styled.div`
   color: white;
@@ -56,6 +62,8 @@ const Input = styled.input`
   height: 40px;
   background-color: white;
   color: black;
+  outline: none;
+  font-size: 20px;
 `;
 const Btn = styled.button`
   width: 300px;

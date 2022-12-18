@@ -1,9 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Review from "../components/review";
+import { useState } from "react";
 
 const Detail = () => {
   const navigate = useNavigate();
+  const [visible, setVisible] = useState(false);
 
   return (
     <Stwrap>
@@ -18,20 +21,40 @@ const Detail = () => {
           <Stbtn>삭제</Stbtn>
         </Btn>
       </Btns>
+      <Reviews>💕 댓글 List</Reviews>
+      <Writebtn
+        onClick={() => {
+          setVisible(!visible);
+        }}
+      >
+        작성하기
+      </Writebtn>
+      <Div>
+        <Input></Input>
+        <Input></Input>
+      </Div>
+
+      {visible && <Review />}
+      {/* visible이 true이면 review 컴포넌트가 보여짐. */}
     </Stwrap>
   );
 };
 
 const Stwrap = styled.div`
-  background-color: black;
+  background-color: #000000;
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
   height: 100%;
   background-size: cover;
-  margin-top: 180px;
+  //margin-top: 180px;
+  margin: 180px auto;
   display: grid;
   place-items: center;
+`;
+const Div = styled.div`
+  margin-bottom: 20px;
 `;
 
 const Title = styled.div`
@@ -50,7 +73,6 @@ const Videoarea = styled.div`
 const Heart = styled.div`
   color: white;
   font-size: 30px;
-  margin-right: 900px;
 `;
 const Text = styled.div`
   width: 1000px;
@@ -88,6 +110,35 @@ const Btns = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+const Reviews = styled.div`
+  font-size: 30px;
+  margin-bottom: 30px;
+`;
+const Writebtn = styled.button`
+  width: 100px;
+  height: 40px;
+  border-radius: 30px;
+  border: 3px solid white;
+  background-color: transparent;
+  color: white;
+  &:hover {
+    background-color: blueviolet;
+    border: none;
+    color: white;
+  }
+  margin-bottom: 20px;
+  margin-left: 900px;
+`;
+const Input = styled.div`
+  width: 1000px;
+  height: 40px;
+  border-radius: 30px;
+  background-color: white;
+  color: black;
+  font-size: 20px;
+  outline: none;
+  margin-bottom: 20px;
 `;
 
 export default Detail;
