@@ -10,11 +10,11 @@ const Category = () => {
   return (
     <div className="categoryMain">
       <div className="menu">
-        <div>집중하고싶을 때</div>
-        <div>잠깨고싶을 때</div>
-        <div>에러가뜰 때</div>
-        <div>TIL/WIL작성할 때</div>
-        <div>팀원과 트러블 있을 때</div>
+        <div>{"집중하고\n싶을 때"}</div>
+        <div>{"잠깨고\n싶을 때"}</div>
+        <div>{"에러가뜰 때"}</div>
+        <div>{"TIL/WIL\n작성할 때"}</div>
+        <div>{"팀원과 트러블\n있을 때"}</div>
       </div>
       <div className="best">
         <h2>{id}</h2>
