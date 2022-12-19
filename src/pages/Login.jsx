@@ -1,9 +1,27 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { postLogin } from "../core/api/login/queries";
+import { useInput } from "../core/utils/useInput";
 
 const Login = () => {
+  const [id, setId] = useInput();
+  const [password, setPassword] = useInput();
   const navigate = useNavigate();
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    postLogin({
+      id,
+      password,
+    })
+      .then((res) => {
+        alert(1000, "success", "로그인 성공");
+        localStorage.setItem("id", res.headers.authorization);
+        navigate("/");
+      })
+      .catch((error) => alert(1000, "error", error.response.data.msg));
+  };
 
   return (
     <div>
@@ -16,16 +34,21 @@ const Login = () => {
             />
             <div style={{ marginLeft: "10px" }}>Login</div>
           </Title>
-          <p>ID</p>
 
-          <Input></Input>
+          <p>ID</p>
+          <Input type="text" id="nickname" value={id} onChange={setId}></Input>
 
           <p>PW </p>
-
-          <Input></Input>
+          <Input
+            type="password"
+            id="password"
+            value={password}
+            onChange={setPassword}
+            autoComplete="off"
+          ></Input>
 
           <div>
-            <Btn margin="20px" onClick={() => navigate("/")}>
+            <Btn margin="20px" onClick={onSubmit}>
               Log In
             </Btn>
             <Btn margin="0" onClick={() => navigate("/register")}>
