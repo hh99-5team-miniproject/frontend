@@ -3,14 +3,22 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useState } from "react";
-import { __getPost } from "../redux/modules/postSlice";
+import {
+  __getPost,
+  __postLike,
+  __deletePost,
+} from "../redux/modules/postSlice";
 
 const Detail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
   const { isLoading, error, post } = useSelector((state) => state.post);
-  const [visible, setVisible] = useState(false);
+  // 임시로 작성해봄 true or false
+  // const { pushLike } = useSelector((state) => state.post.pushLike);
+  // const { likeCount } = useSelector((state) => state.post.likeCount);
+  const [isLogin, setIslogin] = useState(false);
+  const pushLike = true;
 
   // 호출시 사용!!!
   // useEffect(() => {
@@ -27,9 +35,25 @@ const Detail = () => {
 
   // console.log(post);
 
+  if (localStorage.getItem("id") === true) {
+    setIslogin(true);
+  }
+
+  const onClickloginHeartHandler = () => {
+    dispatch(__postLike(Number(id)));
+  };
+
+  const onClickNonloginHeartHandler = () => {
+    alert("로그인 시 이용가능합니다.");
+  };
+
+  const onClickDeletePostHandler = () => {
+    dispatch(__deletePost(Number(id)));
+    navigate("/");
+  };
   return (
     <Stwrap>
-      <Title>제목</Title>
+      <Title>한가롭게 듣기 좋은 노래</Title>
 
       <Videoarea
         width="560"
@@ -46,20 +70,19 @@ const Detail = () => {
         화이팅~~
       </Text>
       <Btns>
-        <Heart>❤️ 10</Heart>
+        {isLogin === true ? (
+          <Heart onClick={onClickloginHeartHandler}>
+            {pushLike === true ? "❤️" : "🤍"}10
+          </Heart>
+        ) : (
+          <Heart onClick={onClickNonloginHeartHandler}>🤍 10</Heart>
+        )}
         <Btn>
           <Stbtn>수정</Stbtn>
-          <Stbtn>삭제</Stbtn>
+          <Stbtn onClick={onClickDeletePostHandler}>삭제</Stbtn>
         </Btn>
       </Btns>
       <Reviews>💕 댓글 List</Reviews>
-      <Writebtn
-        onClick={() => {
-          setVisible(!visible);
-        }}
-      >
-        작성하기
-      </Writebtn>
       <Div>
         <Input></Input>
         <Input></Input>
@@ -92,17 +115,15 @@ const Div = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 50px;
+  font-size: 40px;
   color: white;
   margin-bottom: 20px;
-  text-align: center;
+  width: 1000px;
 `;
 const Videoarea = styled.iframe`
   width: 1000px;
   height: 500px;
-  background-color: transparent;
-  border: 1px solid grey;
-  color: white;
+  border: 2px solid black;
 `;
 const Heart = styled.div`
   color: white;
@@ -148,21 +169,6 @@ const Btns = styled.div`
 const Reviews = styled.div`
   font-size: 30px;
   margin-bottom: 30px;
-`;
-const Writebtn = styled.button`
-  width: 100px;
-  height: 40px;
-  border-radius: 30px;
-  border: 3px solid white;
-  background-color: transparent;
-  color: white;
-  &:hover {
-    background-color: blueviolet;
-    border: none;
-    color: white;
-  }
-  margin-bottom: 20px;
-  margin-left: 900px;
 `;
 const Input = styled.div`
   width: 1000px;
