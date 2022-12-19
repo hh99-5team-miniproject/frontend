@@ -1,15 +1,36 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useState } from "react";
+import { __getPost } from "../redux/modules/postSlice";
 
 const Detail = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const { isLoading, error, post } = useSelector((state) => state.post);
   const [visible, setVisible] = useState(false);
+
+  // 호출시 사용!!!
+  useEffect(() => {
+    dispatch(__getPost(Number(id)));
+  }, [dispatch]);
+
+  if (isLoading) {
+    return <div>로딩 중....</div>;
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
+
+  console.log(post);
 
   return (
     <Stwrap>
       <Title>제목</Title>
+
       <Videoarea
         width="560"
         height="315"

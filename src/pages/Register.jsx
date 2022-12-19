@@ -1,9 +1,26 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useInput } from "../core/utils/useInput";
+import { postSignup } from "../core/api/login/queries";
 
 const Register = () => {
+  const [loginId, setloginId] = useInput();
+  const [nickname, setNickName] = useInput();
+  const [password, setPassword] = useInput();
   const navigate = useNavigate();
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    postSignup({
+      loginId,
+      nickname,
+      password,
+    }).then((res) => {
+      // localStorage.setItem("id", res.headers.authorization);
+      navigate("/login");
+    });
+  };
 
   return (
     <div>
@@ -17,19 +34,29 @@ const Register = () => {
             <div>Sign Up</div>
           </Title>
           <p>ID</p>
-          <Input></Input>
-          <p>PW </p>
-          <Input></Input>
+          <Input
+            type="text"
+            id="id"
+            value={loginId}
+            onChange={setloginId}
+          ></Input>
+          <p>PW</p>
+          <Input
+            type="password"
+            id="password"
+            value={password}
+            onChange={setPassword}
+            autoComplete="off"
+          ></Input>
           <p>NICKNAME</p>
-          <Input></Input>
+          <Input
+            type="text"
+            id="nickname"
+            value={nickname}
+            onChange={setNickName}
+          ></Input>
 
-          <Btn
-            onClick={() => {
-              navigate("/login");
-            }}
-          >
-            Sign Up
-          </Btn>
+          <Btn onClick={onSubmit}>Sign Up</Btn>
         </Container>
       </Stwrap>
     </div>
