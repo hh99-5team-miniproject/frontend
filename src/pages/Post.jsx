@@ -30,7 +30,7 @@ const Wrap = styled.div`
   transform: translate(-50%, -50%);
   text-align: center;
   font-size: 20px;
-  margin-top: 100px;
+  margin-top: 150px;
 `;
 const Title = styled.div`
   font-size: 20px;

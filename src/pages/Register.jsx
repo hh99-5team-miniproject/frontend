@@ -5,7 +5,7 @@ import { useInput } from "../core/utils/useInput";
 import { postSignup } from "../core/api/login/queries";
 
 const Register = () => {
-  const [id, setId] = useInput();
+  const [loginId, setloginId] = useInput();
   const [nickname, setNickName] = useInput();
   const [password, setPassword] = useInput();
   const navigate = useNavigate();
@@ -13,11 +13,11 @@ const Register = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     postSignup({
-      id,
+      loginId,
       nickname,
       password,
     }).then((res) => {
-      localStorage.setItem("id", res.headers.authorization);
+      // localStorage.setItem("id", res.headers.authorization);
       navigate("/login");
     });
   };
@@ -34,8 +34,13 @@ const Register = () => {
             <div>Sign Up</div>
           </Title>
           <p>ID</p>
-          <Input type="text" id="id" value={id} onChange={setId}></Input>
-          <p>PW </p>
+          <Input
+            type="text"
+            id="id"
+            value={loginId}
+            onChange={setloginId}
+          ></Input>
+          <p>PW</p>
           <Input
             type="password"
             id="password"

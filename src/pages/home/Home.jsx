@@ -1,29 +1,20 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import "./home.css";
 import styled from "styled-components";
+import { __getPosts } from "../../redux/modules/postSlice";
 
 const Home = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isLoading, error, posts } = useSelector((state) => state.post);
 
   return (
     <div className="homeMain">
       <div className="category">
         <h2>상황에 맞는 음악을 추천해드려요🎶</h2>
         <div className="categoryBtns">
-          {/* <div
-            className="categoryBtn"
-            style={{ backgroundImage: "url(/image/집중하고 싶을 때.png)" }}
-          >
-            집중하고 싶을 때
-          </div>
-
-          <div
-            className="categoryBtn"
-            style={{ backgroundImage: "url(/image/잠깨우고 싶을 때.png)" }}
-          >
-            잠깨고 싶을 때
-          </div> */}
           <CategoryBtn
             imgUrl="/image/집중하고 싶을 때.png"
             onClick={() => navigate("/category/집중하고 싶을 때 좋은 노래")}

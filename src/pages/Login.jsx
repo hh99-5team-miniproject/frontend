@@ -16,8 +16,11 @@ const Login = () => {
       password,
     })
       .then((res) => {
-        alert(1000, "success", "로그인 성공");
-        localStorage.setItem("id", res.headers.authorization);
+        // 예시로 작성한 것임!!!
+        localStorage.setItem({
+          id: res.headers.authorization,
+          nickname: res.headers.nickname,
+        });
         navigate("/");
       })
       .catch((error) => alert(1000, "error", error.response.data.msg));
