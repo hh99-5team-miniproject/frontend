@@ -60,6 +60,8 @@ const Upload = styled.button`
   margin-left: 20px;
   margin-top: -40px;
 `;
-const Upbtns = styled.p``;
+const Upbtns = styled.p`
+  margin-left: 550px;
+`;
 
 export default Review;
