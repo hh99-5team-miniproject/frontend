@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./home.css";
@@ -9,6 +9,21 @@ const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoading, error, posts } = useSelector((state) => state.post);
+
+  // 호출시 사용!!!
+  // useEffect(() => {
+  //   dispatch(__getPosts());
+  // }, [dispatch]);
+
+  // if (isLoading) {
+  //   return <div>로딩 중....</div>;
+  // }
+
+  // if (error) {
+  //   return <div>{error.message}</div>;
+  // }
+
+  // console.log(posts);
 
   return (
     <div className="homeMain">
@@ -53,6 +68,17 @@ const Home = () => {
       <div className="best">
         <h2>Best Playlist Top 3🏆️</h2>
         <div className="bestCards">
+          {posts?.map((post) => {
+            return (
+              <div className="bestCard">
+                <img src={post.youtubeUrl}></img>
+                <div className="bestCardInfo">
+                  <div>{post.title}</div>
+                  <div>❤️ {post.likeCount}</div>
+                </div>
+              </div>
+            );
+          })}
           <div className="bestCard">
             <img src="https://music-phinf.pstatic.net/20221215_58/1671066897772zjqpJ_PNG/vv.png?type=f310_182"></img>
             <div className="bestCardInfo">
