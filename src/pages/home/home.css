@@ -1,6 +1,9 @@
-.main {
+.homeMain {
   padding: 0px 40px 0px 40px;
   min-height: 700px;
+}
+.best > h2 {
+  margin-top: 0px;
 }
 .bestCards {
   display: flex;

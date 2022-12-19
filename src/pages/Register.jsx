@@ -1,29 +1,62 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useInput } from "../core/utils/useInput";
+import { postSignup } from "../core/api/login/queries";
 
 const Register = () => {
+  const [loginId, setloginId] = useInput();
+  const [nickname, setNickName] = useInput();
+  const [password, setPassword] = useInput();
   const navigate = useNavigate();
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    postSignup({
+      loginId,
+      nickname,
+      password,
+    }).then((res) => {
+      // localStorage.setItem("id", res.headers.authorization);
+      navigate("/login");
+    });
+  };
 
   return (
     <div>
       <Stwrap>
         <Container>
           <Title>
-            <img src="/image/logo.png" className="headerLogo" />
+            <img
+              src="/image/logo login.png"
+              style={{ width: "100px", height: "120px" }}
+            />
             <div>Sign Up</div>
           </Title>
           <p>ID</p>
-          <Input></Input>
-          <p>PW </p>
-          <Input></Input>
-          <p>CHECK PW </p>
-          <Input></Input>
+          <Input
+            type="text"
+            id="id"
+            value={loginId}
+            onChange={setloginId}
+          ></Input>
+          <p>PW</p>
+          <Input
+            type="password"
+            id="password"
+            value={password}
+            onChange={setPassword}
+            autoComplete="off"
+          ></Input>
           <p>NICKNAME</p>
-          <p>
-            <Input></Input>
-          </p>
-          <Btn>Sign Up</Btn>
+          <Input
+            type="text"
+            id="nickname"
+            value={nickname}
+            onChange={setNickName}
+          ></Input>
+
+          <Btn onClick={onSubmit}>Sign Up</Btn>
         </Container>
       </Stwrap>
     </div>
@@ -43,7 +76,11 @@ const Title = styled.div`
   font-size: 70px;
   display: flex;
   justify-content: center;
+  margin-bottom: 30px;
   align-items: center;
+  div {
+    font-size: 60px;
+  }
 `;
 const Container = styled.div`
   color: white;
@@ -54,27 +91,31 @@ const Container = styled.div`
   text-align: center;
   font-size: 20px;
   border: 3px solid white;
-  padding: 50px;
+  border-radius: 30px;
+  padding: 40px 50px 50px 50px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 const Input = styled.input`
-  border-radius: 30px;
+  border-radius: 15px;
   width: 300px;
-  height: 40px;
+  height: 35px;
   background-color: white;
   color: black;
   outline: none;
   font-size: 20px;
 `;
 const Btn = styled.button`
-  width: 300px;
-  height: 50px;
+  width: 308px;
+  height: 42px;
   background-color: transparent;
   color: white;
   border: 3px solid white;
-  margin-top: 20px;
-  margin-right: 10px;
-  margin-left: 10px;
-  border-radius: 30px;
+  margin-top: 35px;
+  border-radius: 20px;
   font-size: 20px;
   &:hover {
     background-color: blueviolet;
