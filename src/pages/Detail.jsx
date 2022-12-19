@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Review from "../components/review";
 import { useState } from "react";
 
 const Detail = () => {
@@ -11,9 +10,20 @@ const Detail = () => {
   return (
     <Stwrap>
       <Title>제목</Title>
-      <Videoarea>유투브영상</Videoarea>
+      <Videoarea
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/cl8rOaX0ye4"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></Videoarea>
 
-      <Text></Text>
+      <Text>
+        이영지 영상 이영지의 그냥 뮤비 영상입니다. 노래가 정말 좋네요!!! 이영지
+        화이팅~~
+      </Text>
       <Btns>
         <Heart>❤️ 10</Heart>
         <Btn>
@@ -34,8 +44,11 @@ const Detail = () => {
         <Input></Input>
       </Div>
 
-      {visible && <Review />}
-      {/* visible이 true이면 review 컴포넌트가 보여짐. */}
+      <Reviewtext></Reviewtext>
+      <Upbtns>
+        <Upload>등록하기</Upload>
+        <Upload>취소하기</Upload>
+      </Upbtns>
     </Stwrap>
   );
 };
@@ -63,7 +76,7 @@ const Title = styled.div`
   margin-bottom: 20px;
   text-align: center;
 `;
-const Videoarea = styled.div`
+const Videoarea = styled.iframe`
   width: 1000px;
   height: 500px;
   background-color: transparent;
@@ -76,7 +89,7 @@ const Heart = styled.div`
 `;
 const Text = styled.div`
   width: 1000px;
-  height: 300px;
+  height: 200px;
   border: 1px solid grey;
   margin-top: 20px;
   background-color: transparent;
@@ -139,6 +152,36 @@ const Input = styled.div`
   font-size: 20px;
   outline: none;
   margin-bottom: 20px;
+`;
+const Reviewtext = styled.textarea`
+  width: 1000px;
+  height: 100px;
+  resize: none;
+  background-color: white;
+  color: black;
+  border-radius: 20px;
+  font-size: 20px;
+  outline: none;
+  margin-bottom: 50px;
+`;
+const Upload = styled.button`
+  width: 200px;
+  height: 50px;
+  border-radius: 30px;
+  border: 3px solid white;
+  background-color: transparent;
+  color: white;
+  &:hover {
+    background-color: blueviolet;
+    border: none;
+    color: white;
+  }
+  margin-bottom: 40px;
+  margin-left: 20px;
+  margin-top: -40px;
+`;
+const Upbtns = styled.p`
+  margin-left: 550px;
 `;
 
 export default Detail;
