@@ -9,6 +9,7 @@ const initialState = {
   error: null,
 };
 
+// 메인페이지에 띄울 게시물들 가져오기
 export const __getPosts = createAsyncThunk(
   "getPosts",
   async (payload, thunkAPI) => {
@@ -21,6 +22,7 @@ export const __getPosts = createAsyncThunk(
   }
 );
 
+// 상세페이지에 보여줄 게시물 데이터
 export const __getPost = createAsyncThunk(
   "getPost",
   async (payload, thunkAPI) => {

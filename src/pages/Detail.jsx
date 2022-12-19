@@ -14,19 +14,19 @@ const Detail = () => {
   const [visible, setVisible] = useState(false);
 
   // 호출시 사용!!!
-  useEffect(() => {
-    dispatch(__getPost(Number(id)));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(__getPost(Number(id)));
+  // }, [dispatch]);
 
-  if (isLoading) {
-    return <div>로딩 중....</div>;
-  }
+  // if (isLoading) {
+  //   return <div>로딩 중....</div>;
+  // }
 
-  if (error) {
-    return <div>{error.message}</div>;
-  }
+  // if (error) {
+  //   return <div>{error.message}</div>;
+  // }
 
-  console.log(post);
+  // console.log(post);
 
   return (
     <Stwrap>
