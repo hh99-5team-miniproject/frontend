@@ -22,7 +22,6 @@ const Detail = () => {
   const [isLogin, setIslogin] = useState(false);
   const pushLike = true;
 
-
   // 호출시 사용!!!
   useEffect(() => {
     dispatch(__getPost(Number(id)));
@@ -32,18 +31,11 @@ const Detail = () => {
     return <div>로딩 중....</div>;
   }
 
-<<<<<<< HEAD
   if (error) {
     return <div>{error.message}</div>;
   }
-=======
 
-  // if (error) {
-  //   return <div>{error.message}</div>;
-  // }
->>>>>>> 9e9c2cdf22bbbbaf26e24b94b6347c4e6f860b36
-
-  console.log(post);
+  // console.log(post);
 
   if (localStorage.getItem("id") === true) {
     setIslogin(true);
@@ -56,7 +48,6 @@ const Detail = () => {
   const onClickEditPostHandler = () => {
     navigate(`/editpost/${id}`);
   };
-
 
   const onClickloginHeartHandler = () => {
     dispatch(__postLike(Number(id)));
@@ -97,19 +88,9 @@ const Detail = () => {
           <Stbtn onClick={onClickDeletePostHandler}>삭제</Stbtn>
         </Btn>
       </Btns>
-<<<<<<< HEAD
 
-      <Reviews>💕 댓글 List</Reviews>
-      <Div>
-        <Input></Input>
-        <Input></Input>
-      </Div>
-=======
->>>>>>> 9e9c2cdf22bbbbaf26e24b94b6347c4e6f860b36
-
-      <Review id={id} />
+      <Review id={Number(id)} />
       {/* 해당하는 id를 넘겨줌 */}
-
     </Stwrap>
   );
 };
@@ -180,6 +161,5 @@ const Btns = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
 
 export default Detail;

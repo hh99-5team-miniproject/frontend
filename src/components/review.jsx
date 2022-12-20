@@ -1,19 +1,18 @@
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 import {
   __addComment,
   __deleteComment,
   __changeComment,
   __getComment,
 } from "../redux/modules/reviewSlice";
-import styled from "styled-components";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect } from "react";
 
 const Review = ({ id }) => {
   console.log(id);
   const dispatch = useDispatch();
-  const { isLoading, error, comments } = useSelector((state) => state);
-  console.log(comments);
+  const { isLoading, error, comments } = useSelector((state) => state.review);
 
   const [addComment, setAddComment] = useState({
     comment: "",
@@ -25,6 +24,8 @@ const Review = ({ id }) => {
   useEffect(() => {
     dispatch(__getComment({ postId: id }));
   }, [dispatch, id]);
+
+  console.log(comments);
 
   const onClickAddCommentHandler = (addComment) => {
     dispatch(__getComment([addComment, id]));
