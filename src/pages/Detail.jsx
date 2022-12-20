@@ -4,26 +4,26 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useState } from "react";
 import { __getPost } from "../redux/modules/postSlice";
+import Review from "../components/review";
 
 const Detail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
   const { isLoading, error, post } = useSelector((state) => state.post);
-  const [visible, setVisible] = useState(false);
 
   // 호출시 사용!!!
-  useEffect(() => {
-    dispatch(__getPost(Number(id)));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(__getPost(Number(id)));
+  // }, [dispatch]);
 
-  if (isLoading) {
-    return <div>로딩 중....</div>;
-  }
+  // if (isLoading) {
+  //   return <div>로딩 중....</div>;
+  // }
 
-  if (error) {
-    return <div>{error.message}</div>;
-  }
+  // if (error) {
+  //   return <div>{error.message}</div>;
+  // }
 
   console.log(post);
 
@@ -52,24 +52,8 @@ const Detail = () => {
           <Stbtn>삭제</Stbtn>
         </Btn>
       </Btns>
-      <Reviews>💕 댓글 List</Reviews>
-      <Writebtn
-        onClick={() => {
-          setVisible(!visible);
-        }}
-      >
-        작성하기
-      </Writebtn>
-      <Div>
-        <Input></Input>
-        <Input></Input>
-      </Div>
-
-      <Reviewtext></Reviewtext>
-      <Upbtns>
-        <Upload>등록하기</Upload>
-        <Upload>취소하기</Upload>
-      </Upbtns>
+      <Review id={id} />
+      {/* 해당하는 id를 넘겨줌 */}
     </Stwrap>
   );
 };
@@ -86,9 +70,6 @@ const Stwrap = styled.div`
   margin: 180px auto;
   display: grid;
   place-items: center;
-`;
-const Div = styled.div`
-  margin-bottom: 20px;
 `;
 
 const Title = styled.div`
@@ -144,65 +125,6 @@ const Btns = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-const Reviews = styled.div`
-  font-size: 30px;
-  margin-bottom: 30px;
-`;
-const Writebtn = styled.button`
-  width: 100px;
-  height: 40px;
-  border-radius: 30px;
-  border: 3px solid white;
-  background-color: transparent;
-  color: white;
-  &:hover {
-    background-color: blueviolet;
-    border: none;
-    color: white;
-  }
-  margin-bottom: 20px;
-  margin-left: 900px;
-`;
-const Input = styled.div`
-  width: 1000px;
-  height: 40px;
-  border-radius: 30px;
-  background-color: white;
-  color: black;
-  font-size: 20px;
-  outline: none;
-  margin-bottom: 20px;
-`;
-const Reviewtext = styled.textarea`
-  width: 1000px;
-  height: 100px;
-  resize: none;
-  background-color: white;
-  color: black;
-  border-radius: 20px;
-  font-size: 20px;
-  outline: none;
-  margin-bottom: 50px;
-`;
-const Upload = styled.button`
-  width: 200px;
-  height: 50px;
-  border-radius: 30px;
-  border: 3px solid white;
-  background-color: transparent;
-  color: white;
-  &:hover {
-    background-color: blueviolet;
-    border: none;
-    color: white;
-  }
-  margin-bottom: 40px;
-  margin-left: 20px;
-  margin-top: -40px;
-`;
-const Upbtns = styled.p`
-  margin-left: 550px;
 `;
 
 export default Detail;
