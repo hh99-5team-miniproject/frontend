@@ -1,23 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { __addPost } from "../redux/modules/postSlice";
 
 const Post = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [addPost, setAddPost] = useState({
+    title: "",
+    youtubeUrl: "",
+    content: "",
+    category: "",
+  });
+  const onClickAddPostHandler = () => {
+    console.log(addPost);
+    dispatch(__addPost(addPost));
+    navigate(`/category/${addPost.category}`);
+  };
 
   return (
     <div>
       <Wrap>
         <Title>
-          제목 <Input></Input>
+          <div>제목</div>
+          <Input
+            width="620px"
+            onChange={(e) => {
+              setAddPost({ ...addPost, title: e.target.value });
+            }}
+          ></Input>
         </Title>
-        <Video>
-          URL <Input></Input>
-        </Video>
+        <Second>
+          <Video>
+            <div>URL</div>
+            <Input
+              width="300px"
+              onChange={(e) => {
+                setAddPost({ ...addPost, youtubeUrl: e.target.value });
+              }}
+            ></Input>
+          </Video>
+          <Select
+            onChange={(e) => {
+              setAddPost({ ...addPost, category: e.target.value });
+            }}
+          >
+            <option value="" selected>
+              카테고리를 선택해주세요
+            </option>
+            <option value="집중하고 싶을 때">집중하고 싶을 때</option>
+            <option value="잠깨고 싶을 때">잠깨고 싶을 때</option>
+            <option value="에러가 뜰 때">에러가 뜰 때</option>
+            <option value="TIL/WIL 작성할 때">TIL/WIL 작성할 때</option>
+            <option value="팀원과 트러블 있을 때">팀원과 트러블 있을 때</option>
+          </Select>
+        </Second>
         <Content>
-          내용 <Textarea></Textarea>
+          <p>내용</p>
+          <Textarea
+            onChange={(e) => {
+              setAddPost({ ...addPost, content: e.target.value });
+            }}
+          ></Textarea>
         </Content>
-        <Write>등록하기</Write>
+        <Write onClick={onClickAddPostHandler}>등록하기</Write>
       </Wrap>
     </div>
   );
@@ -31,40 +79,55 @@ const Wrap = styled.div`
   text-align: center;
   font-size: 20px;
   margin-top: 150px;
+  height: 650px;
 `;
 const Title = styled.div`
   font-size: 20px;
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  div {
+    margin-right: 42px;
+  }
 `;
 const Input = styled.input`
-  width: 1000px;
+  width: ${(props) => props.width};
   height: 40px;
   background-color: white;
   color: black;
   outline: none;
-  border-radius: 30px;
+  border-radius: 15px;
   font-size: 20px;
-  margin-bottom: 30px;
-  margin-top: 20px;
 `;
 const Video = styled.div`
   font-size: 20px;
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  div {
+    margin-right: 42px;
+  }
 `;
 const Content = styled.div`
   font-size: 20px;
   color: white;
+  p {
+    margin-bottom: 30px;
+  }
 `;
 const Textarea = styled.textarea`
-  width: 1000px;
+  width: 700px;
   height: 300px;
   resize: none;
   background-color: white;
   color: black;
   font-size: 20px;
-  border-radius: 20px;
+  border-radius: 15px;
   outline: none;
-  margin-top: 20px;
 `;
 const Write = styled.button`
   width: 200px;
@@ -81,5 +144,13 @@ const Write = styled.button`
   }
   margin-top: 30px;
 `;
-
+const Select = styled.select`
+  width: 300px;
+  height: 40px;
+  border-radius: 15px;
+  margin-left: 20px;
+`;
+const Second = styled.div`
+  display: flex;
+`;
 export default Post;
