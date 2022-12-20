@@ -16,10 +16,15 @@ const Register = () => {
       loginId,
       nickname,
       password,
-    }).then((res) => {
-      // localStorage.setItem("id", res.headers.authorization);
-      navigate("/login");
-    });
+    })
+      .then((res) => {
+        console.log(res);
+        console.log("성공시 출력!!!");
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.log("실패시 출력!!!");
+      });
   };
 
   return (
@@ -39,6 +44,7 @@ const Register = () => {
             id="id"
             value={loginId}
             onChange={setloginId}
+            autoComplete="off"
           ></Input>
           <p>PW</p>
           <Input
@@ -54,6 +60,7 @@ const Register = () => {
             id="nickname"
             value={nickname}
             onChange={setNickName}
+            autoComplete="off"
           ></Input>
 
           <Btn onClick={onSubmit}>Sign Up</Btn>

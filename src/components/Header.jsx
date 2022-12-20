@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./header.css";
 import { useNavigate } from "react-router-dom";
-import { postLogout } from "../core/api/login/queries";
+import { useDispatch, useSelector } from "react-redux";
+import { changeIsLogin } from "../redux/modules/postSlice";
 
 function Header() {
   const navigate = useNavigate();
-  // const nickname = localStorage.getItem("nickname");
-  const nickname = false;
+  const dispatch = useDispatch();
+  const { isLogin } = useSelector((state) => state.post);
+
+  const [nickname, setNickname] = useState(null);
+
+  useEffect(() => {
+    if (localStorage.getItem("nickname")) {
+      setNickname(localStorage.getItem("nickname"));
+    }
+  }, []);
 
   return (
     <div className="header">
@@ -26,14 +35,15 @@ function Header() {
         Coding Vibe
       </div>
       <div className="headerTop">
-        {nickname === true ? (
+        {nickname !== null ? (
           <div className="headerTopLogin">
             <div className="headerTopText">{nickname}님 환영합니다!</div>
             <button
               className="headerTopButton"
-              onClick={(e) => {
-                e.preventDefault();
-                postLogout();
+              onClick={() => {
+                localStorage.clear();
+                setNickname(null);
+                dispatch(changeIsLogin());
               }}
             >
               로그아웃

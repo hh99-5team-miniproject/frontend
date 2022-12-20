@@ -15,29 +15,37 @@ const Detail = () => {
   const { id } = useParams();
   const { isLoading, error, post } = useSelector((state) => state.post);
   // 임시로 작성해봄 true or false
-  // const { pushLike } = useSelector((state) => state.post.pushLike);
-  // const { likeCount } = useSelector((state) => state.post.likeCount);
+  // const { pushLike } = useSelector((state) => state.post.post);
+  // const { likeCount } = useSelector((state) => state.post.post);
   const [isLogin, setIslogin] = useState(false);
   const pushLike = true;
 
   // 호출시 사용!!!
-  // useEffect(() => {
-  //   dispatch(__getPost(Number(id)));
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(__getPost(Number(id)));
+  }, [dispatch]);
 
-  // if (isLoading) {
-  //   return <div>로딩 중....</div>;
-  // }
+  if (isLoading) {
+    return <div>로딩 중....</div>;
+  }
 
-  // if (error) {
-  //   return <div>{error.message}</div>;
-  // }
+  if (error) {
+    return <div>{error.message}</div>;
+  }
 
-  // console.log(post);
+  console.log(post);
 
   if (localStorage.getItem("id") === true) {
     setIslogin(true);
   }
+  const onClickDeletePostHandler = () => {
+    dispatch(__deletePost(Number(id)));
+    navigate("/");
+  };
+
+  const onClickEditPostHandler = () => {
+    navigate(`/editpost/${id}`);
+  };
 
   const onClickloginHeartHandler = () => {
     dispatch(__postLike(Number(id)));
@@ -47,41 +55,38 @@ const Detail = () => {
     alert("로그인 시 이용가능합니다.");
   };
 
-  const onClickDeletePostHandler = () => {
-    dispatch(__deletePost(Number(id)));
-    navigate("/");
-  };
   return (
     <Stwrap>
-      <Title>한가롭게 듣기 좋은 노래</Title>
+      <Title>{post.title}</Title>
 
       <Videoarea
         width="560"
         height="315"
-        src="https://www.youtube.com/embed/cl8rOaX0ye4"
+        src={post.youtubeUrl}
         title="YouTube video player"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
       ></Videoarea>
 
-      <Text>
-        이영지 영상 이영지의 그냥 뮤비 영상입니다. 노래가 정말 좋네요!!! 이영지
-        화이팅~~
-      </Text>
+      <Text>{post.content}</Text>
       <Btns>
         {isLogin === true ? (
           <Heart onClick={onClickloginHeartHandler}>
-            {pushLike === true ? "❤️" : "🤍"}10
+            {pushLike === true ? "❤️" : "🤍"}
+            {post.likeCount}
           </Heart>
         ) : (
-          <Heart onClick={onClickNonloginHeartHandler}>🤍 10</Heart>
+          <Heart onClick={onClickNonloginHeartHandler}>
+            🤍 {post.likeCount}
+          </Heart>
         )}
         <Btn>
-          <Stbtn>수정</Stbtn>
+          <Stbtn onClick={onClickEditPostHandler}>수정</Stbtn>
           <Stbtn onClick={onClickDeletePostHandler}>삭제</Stbtn>
         </Btn>
       </Btns>
+
       <Reviews>💕 댓글 List</Reviews>
       <Div>
         <Input></Input>

@@ -3,27 +3,39 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { postLogin } from "../core/api/login/queries";
 import { useInput } from "../core/utils/useInput";
+import { useDispatch, useSelector } from "react-redux";
+import { changeIsLogin } from "../redux/modules/postSlice";
 
 const Login = () => {
   const [id, setId] = useInput();
   const [password, setPassword] = useInput();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isLogin } = useSelector((state) => state.post);
+  // console.log("로그인창 이즈로그인", isLogin);
 
   const onSubmit = (e) => {
     e.preventDefault();
     postLogin({
-      id,
-      password,
+      loginId: id,
+      password: password,
     })
       .then((res) => {
         // 예시로 작성한 것임!!!
-        localStorage.setItem({
-          id: res.headers.authorization,
-          nickname: res.headers.nickname,
-        });
-        navigate("/");
+        console.log("로그인 성공");
+        console.log(res.headers.authorization);
+        console.log(res.data.nickname);
+        localStorage.setItem("id", res.headers.authorization);
+        localStorage.setItem("nickname", res.data.nickname);
+        // navigate("/");
+        window.location.href = "/";
       })
-      .catch((error) => alert(1000, "error", error.response.data.msg));
+      .catch((error) => {
+        const msg = error.response.data.errorMessage;
+        alert(msg);
+        console.log("로그인 실패");
+        navigate("/login");
+      });
   };
 
   return (
@@ -39,7 +51,13 @@ const Login = () => {
           </Title>
 
           <p>ID</p>
-          <Input type="text" id="nickname" value={id} onChange={setId}></Input>
+          <Input
+            type="text"
+            id="nickname"
+            value={id}
+            onChange={setId}
+            autoComplete="off"
+          ></Input>
 
           <p>PW </p>
           <Input
