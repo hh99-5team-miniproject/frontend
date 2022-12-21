@@ -80,7 +80,9 @@ const Home = () => {
                 <img className="bestCardImage" src={thumbnail[i]}></img>
                 <div className="bestCardInfo">
                   <div>{post.title}</div>
-                  <div>❤️ {post.likeCount}</div>
+                  <div className="bestCardInfoLikeCount">
+                    ❤️ {post.likeCount}
+                  </div>
                 </div>
               </div>
             );
@@ -94,8 +96,10 @@ const Home = () => {
 export default Home;
 
 const CategoryBtn = styled.div`
-  width: 250px;
-  height: 250px;
+  width: 322px;
+  height: 322px;
+  min-width: 250px;
+  min-height: 250px;
   border-radius: 20px;
   box-sizing: border-box;
   background-image: linear-gradient(

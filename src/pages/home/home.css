@@ -1,27 +1,33 @@
 .homeMain {
-  padding: 0px 40px 0px 40px;
-  min-height: 700px;
+  padding-left: 40px;
+  height: 950px;
 }
 .best > h2 {
-  margin-top: 0px;
+  margin: 0px;
 }
 .bestCards {
   display: flex;
   flex-wrap: wrap;
 }
 .bestCard {
-  width: 310px;
+  width: 380px;
+  min-width: 250px;
   /* border: 3px solid gray; */
   border-radius: 20px;
-  margin-right: 40px;
+  margin-right: 50px;
 }
 .bestCardImage {
-  width: 310px;
+  width: 380px;
+  min-width: 250px;
 }
 .bestCardInfo {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   margin-top: 10px;
+}
+.bestCardInfoLikeCount {
+  text-align: right;
+  margin-top: 5px;
 }
 .category {
   margin-bottom: 90px;

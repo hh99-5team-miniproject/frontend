@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./header.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { changeIsLogin } from "../redux/modules/postSlice";
 
 function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLogin } = useSelector((state) => state.post);
 
   const [nickname, setNickname] = useState(null);
 
@@ -51,7 +49,8 @@ function Header() {
               onClick={() => {
                 localStorage.clear();
                 setNickname(null);
-                dispatch(changeIsLogin());
+                // dispatch(changeIsLogin());
+                window.location.reload(true);
               }}
             >
               로그아웃

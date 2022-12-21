@@ -51,23 +51,16 @@ const EditComment = ({ comment, isLogin }) => {
     }
   };
 
-  //   if (isLoading) {
-  //     return <div>댓글 불러오는 중...</div>;
-  //   }
-
-  //   if (error) {
-  //     console.log(
-  //       "댓글 수정에서 나온 에러메세지",
-  //       "타인의 댓글을 수정 및 삭제할 수 없습니다!"
-  //     );
-  //   }
+  // if (isLoading) {
+  //   return <div>댓글 불러오는 중...</div>;
+  // }
 
   return (
     <Div>
       <Comment>
         {isCommentChange === false ? (
           <CommentTexts>
-            <CommentText>{comment.nickname}</CommentText>
+            <CommentNickname>{comment.nickname}</CommentNickname>
             <CommentText>{comment.comment}</CommentText>
           </CommentTexts>
         ) : (
@@ -128,6 +121,13 @@ const CommentTexts = styled.div`
 
 const CommentText = styled.div`
   margin-right: 15px;
+`;
+
+const CommentNickname = styled.div`
+  margin-right: 15px;
+  /* padding-right: 15px;
+  border-right: 2px solid white; */
+  color: blueviolet;
 `;
 
 const Reviewbtn = styled.button`

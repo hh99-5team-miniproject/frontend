@@ -23,7 +23,7 @@ const Register = () => {
         navigate("/login");
       })
       .catch((error) => {
-        console.log("실패시 출력!!!");
+        alert(error.response.data.errorMessage);
       });
   };
 
@@ -83,7 +83,7 @@ const Title = styled.div`
   font-size: 70px;
   display: flex;
   justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   align-items: center;
   div {
     font-size: 60px;
@@ -99,7 +99,7 @@ const Container = styled.div`
   font-size: 20px;
   border: 3px solid white;
   border-radius: 30px;
-  padding: 40px 50px 50px 50px;
+  padding: 35px 50px 50px 50px;
 
   display: flex;
   flex-direction: column;

@@ -18,12 +18,6 @@ const Post = () => {
   const onClickAddPostHandler = () => {
     console.log(addPost);
     dispatch(__addPost(addPost));
-
-    if (error) {
-      alert(error.response.data.errorMessage);
-    } else {
-      window.location.href = `/category/${addPost.category}`;
-    }
   };
 
   return (

@@ -69,18 +69,13 @@ const Category = () => {
                 <img className="bestCardImage" src={thumbnail[i]}></img>
                 <div className="bestCardInfo">
                   <div>{post.title}</div>
-                  <div>❤️ {post.postlike}</div>
+                  <div className="bestCardInfoLikeCount">
+                    ❤️ {post.likeCount}
+                  </div>
                 </div>
               </div>
             );
           })}
-          {/* <div className="bestCard">
-            <img src="https://music-phinf.pstatic.net/20221215_58/1671066897772zjqpJ_PNG/vv.png?type=f310_182"></img>
-            <div className="bestCardInfo">
-              <div>공부할 때 듣는 플레이리스트</div>
-              <div>❤️ 20</div>
-            </div>
-          </div> */}
         </div>
       </div>
     </div>
