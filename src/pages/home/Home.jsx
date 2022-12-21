@@ -20,16 +20,11 @@ const Home = () => {
   }
 
   if (error) {
-    return <div>{error.message}</div>;
+    alert("홈에서 나온 에러메세지");
   }
 
-  // console.log(posts);
-  // console.log(posts[0].youtubeUrl);
-  // const urlCode = posts[0].youtubeUrl.split("=")[1];
-  // console.log(`https://img.youtube.com/vi/${urlCode}/0.jpg`);
-
   const thumbnail = posts.map((post) => {
-    return `https://img.youtube.com/vi/${post.youtubeUrl.split("=")[1]}/0.jpg`;
+    return `https://img.youtube.com/vi/${post.youtubeUrl.split("/")[4]}/0.jpg`;
   });
 
   console.log(thumbnail);
@@ -65,7 +60,7 @@ const Home = () => {
           </CategoryBtn>
           <CategoryBtn
             imgUrl="/image/팀원과 트러블이 있을 때.png"
-            onClick={() => navigate("/category/팀원과 트러블이 있을 때")}
+            onClick={() => navigate("/category/팀원과 트러블 있을 때")}
           >
             팀원과 트러블 있을 때
           </CategoryBtn>
@@ -89,29 +84,6 @@ const Home = () => {
               </div>
             );
           })}
-          <div className="bestCard">
-            <img src="https://music-phinf.pstatic.net/20221215_58/1671066897772zjqpJ_PNG/vv.png?type=f310_182"></img>
-            <div className="bestCardInfo">
-              <div>공부할 때 듣는 플레이리스트</div>
-              <div>❤️ 20</div>
-            </div>
-          </div>
-
-          <div className="bestCard">
-            <img src="https://music-phinf.pstatic.net/20221215_58/1671066897772zjqpJ_PNG/vv.png?type=f310_182"></img>
-            <div className="bestCardInfo">
-              <div>공부할 때 듣는 플레이리스트</div>
-              <div>❤️ 15</div>
-            </div>
-          </div>
-
-          <div className="bestCard">
-            <img src="https://music-phinf.pstatic.net/20221215_58/1671066897772zjqpJ_PNG/vv.png?type=f310_182"></img>
-            <div className="bestCardInfo">
-              <div>공부할 때 듣는 플레이리스트</div>
-              <div>❤️ 10</div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

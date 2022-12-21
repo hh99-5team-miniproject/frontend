@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useState } from "react";
-import Review from "../components/review";
+import Comments from "../components/Comments";
 import {
   __getPost,
   __postLike,
@@ -14,39 +14,43 @@ const Detail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { isLoading, error, post } = useSelector((state) => state.post);
+  const { isLoading, error, post, checkPostLike, likeCount } = useSelector(
+    (state) => state.post
+  );
 
   // 임시로 작성해봄 true or false
   // const { pushLike } = useSelector((state) => state.post.post);
   // const { likeCount } = useSelector((state) => state.post.post);
-  const [isLogin, setIslogin] = useState(false);
-  const pushLike = true;
+  const [isLogin, setIslogin] = useState(true);
 
   // 호출시 사용!!!
   useEffect(() => {
+    if (localStorage.getItem("id") === true) {
+      setIslogin(true);
+    }
+    console.log(isLogin);
     dispatch(__getPost(Number(id)));
-  }, [dispatch]);
-
-  if (isLoading) {
-    return <div>로딩 중....</div>;
-  }
-
-  if (error) {
-    return <div>{error.message}</div>;
-  }
+  }, [dispatch, id]);
 
   // console.log(post);
-
-  if (localStorage.getItem("id") === true) {
-    setIslogin(true);
-  }
-  const onClickDeletePostHandler = () => {
-    dispatch(__deletePost(Number(id)));
-    navigate("/");
-  };
+  console.log(checkPostLike);
+  console.log(likeCount);
 
   const onClickEditPostHandler = () => {
-    navigate(`/editpost/${id}`);
+    if (isLogin) {
+      navigate(`/editpost/${id}`);
+    } else {
+      alert("로그인 후 이용가능합니다.");
+    }
+  };
+
+  const onClickDeletePostHandler = () => {
+    // if (isLogin) {
+    dispatch(__deletePost(Number(id)));
+    navigate("/");
+    // } else {
+    //   alert("로그인 후 이용가능합니다.");
+    // }
   };
 
   const onClickloginHeartHandler = () => {
@@ -56,6 +60,15 @@ const Detail = () => {
   const onClickNonloginHeartHandler = () => {
     alert("로그인 시 이용가능합니다.");
   };
+
+  if (isLoading) {
+    return <div>로딩 중....</div>;
+  }
+  console.log(isLogin);
+
+  if (error) {
+    alert("디테일에서 나온 에러메세지", error.response.data.errorMessage);
+  }
 
   return (
     <Stwrap>
@@ -75,12 +88,13 @@ const Detail = () => {
       <Btns>
         {isLogin === true ? (
           <Heart onClick={onClickloginHeartHandler}>
-            {pushLike === true ? "❤️" : "🤍"}
-            {post.likeCount}
+            <div>{checkPostLike === true ? "🤍" : "❤️"}</div>
+            <div>{likeCount}</div>
           </Heart>
         ) : (
           <Heart onClick={onClickNonloginHeartHandler}>
-            🤍 {post.likeCount}
+            <div>🤍</div>
+            <div>{likeCount}</div>
           </Heart>
         )}
         <Btn>
@@ -89,7 +103,7 @@ const Detail = () => {
         </Btn>
       </Btns>
 
-      <Review id={Number(id)} />
+      <Comments isLogin={isLogin} />
       {/* 해당하는 id를 넘겨줌 */}
     </Stwrap>
   );
@@ -113,19 +127,20 @@ const Title = styled.div`
   font-size: 40px;
   color: white;
   margin-bottom: 20px;
-  width: 1000px;
+  width: 850px;
 `;
 const Videoarea = styled.iframe`
-  width: 1000px;
+  width: 850px;
   height: 500px;
   border: 2px solid black;
 `;
 const Heart = styled.div`
+  display: flex;
   color: white;
   font-size: 30px;
 `;
 const Text = styled.div`
-  width: 1000px;
+  width: 850px;
   height: 200px;
   border: 1px solid grey;
   margin-top: 20px;
@@ -135,11 +150,14 @@ const Text = styled.div`
   font-size: 20px;
   resize: none;
 `;
+const Btn = styled.div`
+  display: flex;
+`;
 const Stbtn = styled.button`
   color: white;
   background-color: transparent;
   border: 3px solid white;
-  width: 200px;
+  width: 150px;
   height: 60px;
   margin-top: 30px;
   margin-left: 20px;
@@ -152,14 +170,12 @@ const Stbtn = styled.button`
     border: none;
   }
 `;
-const Btn = styled.div`
-  margin-left: 500px;
-  margin-bottom: 50px;
-`;
 const Btns = styled.div`
+  width: 850px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  margin-bottom: 100px;
 `;
 
 export default Detail;

@@ -6,6 +6,8 @@ const initialState = {
   posts: [],
   categoryPosts: [],
   post: {},
+  checkPostLike: null,
+  likeCount: null,
   isLogin: false,
   isLoading: false,
   error: null,
@@ -82,6 +84,7 @@ export const __postLike = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await instance.post(`/api/posts/${payload}/like`);
+      console.log(data);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -131,6 +134,8 @@ export const postSlice = createSlice({
     [__getPost.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.post = action.payload;
+      state.checkPostLike = action.payload.checkPostLike;
+      state.likeCount = action.payload.likeCount;
     },
     [__getPost.rejected]: (state, action) => {
       state.isLoading = false;
@@ -142,12 +147,14 @@ export const postSlice = createSlice({
     },
     [__postLike.fulfilled]: (state, action) => {
       state.isLoading = false;
-      if (state.post.pushLike === true) {
-        state.post.likeCount -= 1;
+
+      console.log(state.checkPostLike);
+      if (state.checkPostLike === true) {
+        state.likeCount += 1;
       } else {
-        state.post.likeCount += 1;
+        state.likeCount -= 1;
       }
-      state.post.pushLike = !state.post.pushLike;
+      state.checkPostLike = !state.checkPostLike;
     },
     [__postLike.rejected]: (state, action) => {
       state.isLoading = false;
@@ -166,6 +173,7 @@ export const postSlice = createSlice({
     [__deletePost.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
+      console.log(action.payload);
     },
 
     [__addPost.pending]: (state) => {

@@ -17,6 +17,14 @@ function Header() {
     }
   }, []);
 
+  const onClickPostButtonHandler = () => {
+    if (nickname === null) {
+      alert("로그인 시 이용가능합니다.");
+    } else {
+      navigate("/post");
+    }
+  };
+
   return (
     <div className="header">
       <img
@@ -60,12 +68,7 @@ function Header() {
           </button>
         )}
 
-        <button
-          className="headerTopButton"
-          onClick={() => {
-            navigate("/post");
-          }}
-        >
+        <button className="headerTopButton" onClick={onClickPostButtonHandler}>
           글 작성
         </button>
       </div>
