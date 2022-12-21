@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useState } from "react";
-import Review from "../components/review";
+import Comments from "../components/Comments";
 import {
   __getPost,
   __postLike,
@@ -14,35 +14,44 @@ const Detail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { isLoading, error, post } = useSelector((state) => state.post);
+  const { isLoading, error, post, checkPostLike, likeCount } = useSelector(
+    (state) => state.post
+  );
 
   // 임시로 작성해봄 true or false
-  // const { pushLike } = useSelector((state) => state.post.pushLike);
-  // const { likeCount } = useSelector((state) => state.post.likeCount);
-  const [isLogin, setIslogin] = useState(false);
-  const pushLike = true;
-
+  // const { pushLike } = useSelector((state) => state.post.post);
+  // const { likeCount } = useSelector((state) => state.post.post);
+  const [isLogin, setIslogin] = useState(true);
 
   // 호출시 사용!!!
-  // useEffect(() => {
-  //   dispatch(__getPost(Number(id)));
-  // }, [dispatch]);
-
-  // if (isLoading) {
-  //   return <div>로딩 중....</div>;
-  // }
-
-
-  // if (error) {
-  //   return <div>{error.message}</div>;
-  // }
+  useEffect(() => {
+    if (localStorage.getItem("id") === true) {
+      setIslogin(true);
+    }
+    console.log(isLogin);
+    dispatch(__getPost(Number(id)));
+  }, [dispatch, id]);
 
   // console.log(post);
+  console.log(checkPostLike);
+  console.log(likeCount);
 
-  if (localStorage.getItem("id") === true) {
-    setIslogin(true);
-  }
+  const onClickEditPostHandler = () => {
+    if (isLogin) {
+      navigate(`/editpost/${id}`);
+    } else {
+      alert("로그인 후 이용가능합니다.");
+    }
+  };
 
+  const onClickDeletePostHandler = () => {
+    // if (isLogin) {
+    dispatch(__deletePost(Number(id)));
+    navigate("/");
+    // } else {
+    //   alert("로그인 후 이용가능합니다.");
+    // }
+  };
 
   const onClickloginHeartHandler = () => {
     dispatch(__postLike(Number(id)));
@@ -52,45 +61,50 @@ const Detail = () => {
     alert("로그인 시 이용가능합니다.");
   };
 
-  const onClickDeletePostHandler = () => {
-    dispatch(__deletePost(Number(id)));
-    navigate("/");
-  };
+  if (isLoading) {
+    return <div>로딩 중....</div>;
+  }
+  console.log(isLogin);
+
+  if (error) {
+    alert("디테일에서 나온 에러메세지", error.response.data.errorMessage);
+  }
+
   return (
     <Stwrap>
-      <Title>한가롭게 듣기 좋은 노래</Title>
+      <Title>{post.title}</Title>
 
       <Videoarea
         width="560"
         height="315"
-        src="https://www.youtube.com/embed/cl8rOaX0ye4"
+        src={post.youtubeUrl}
         title="YouTube video player"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
       ></Videoarea>
 
-      <Text>
-        이영지 영상 이영지의 그냥 뮤비 영상입니다. 노래가 정말 좋네요!!! 이영지
-        화이팅~~
-      </Text>
+      <Text>{post.content}</Text>
       <Btns>
         {isLogin === true ? (
           <Heart onClick={onClickloginHeartHandler}>
-            {pushLike === true ? "❤️" : "🤍"}10
+            <div>{checkPostLike === true ? "🤍" : "❤️"}</div>
+            <div>{likeCount}</div>
           </Heart>
         ) : (
-          <Heart onClick={onClickNonloginHeartHandler}>🤍 10</Heart>
+          <Heart onClick={onClickNonloginHeartHandler}>
+            <div>🤍</div>
+            <div>{likeCount}</div>
+          </Heart>
         )}
         <Btn>
-          <Stbtn>수정</Stbtn>
+          <Stbtn onClick={onClickEditPostHandler}>수정</Stbtn>
           <Stbtn onClick={onClickDeletePostHandler}>삭제</Stbtn>
         </Btn>
       </Btns>
 
-      <Review id={id} />
+      <Comments isLogin={isLogin} />
       {/* 해당하는 id를 넘겨줌 */}
-
     </Stwrap>
   );
 };
@@ -113,19 +127,20 @@ const Title = styled.div`
   font-size: 40px;
   color: white;
   margin-bottom: 20px;
-  width: 1000px;
+  width: 850px;
 `;
 const Videoarea = styled.iframe`
-  width: 1000px;
+  width: 850px;
   height: 500px;
   border: 2px solid black;
 `;
 const Heart = styled.div`
+  display: flex;
   color: white;
   font-size: 30px;
 `;
 const Text = styled.div`
-  width: 1000px;
+  width: 850px;
   height: 200px;
   border: 1px solid grey;
   margin-top: 20px;
@@ -135,11 +150,14 @@ const Text = styled.div`
   font-size: 20px;
   resize: none;
 `;
+const Btn = styled.div`
+  display: flex;
+`;
 const Stbtn = styled.button`
   color: white;
   background-color: transparent;
   border: 3px solid white;
-  width: 200px;
+  width: 150px;
   height: 60px;
   margin-top: 30px;
   margin-left: 20px;
@@ -152,15 +170,12 @@ const Stbtn = styled.button`
     border: none;
   }
 `;
-const Btn = styled.div`
-  margin-left: 500px;
-  margin-bottom: 50px;
-`;
 const Btns = styled.div`
+  width: 850px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  margin-bottom: 100px;
 `;
-
 
 export default Detail;

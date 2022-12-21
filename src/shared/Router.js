@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // 1. react-router-dom을 사용하기 위해서 아래 API들을 import 합니다.
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./Layout";
@@ -8,6 +8,7 @@ import Detail from "../pages/Detail";
 import Login from "../pages/Login";
 import Post from "../pages/Post";
 import Register from "../pages/Register";
+import EditPost from "../pages/EditPost";
 
 const Router = () => {
   return (
@@ -19,6 +20,7 @@ const Router = () => {
           <Route path="/" element={<Home />} />
           <Route path="/detail/:id" element={<Detail />} />
           <Route path="/post" element={<Post />} />
+          <Route path="/editpost/:id" element={<EditPost />} />
           <Route path="/category/:id" element={<Category />} />
         </Routes>
       </Layout>

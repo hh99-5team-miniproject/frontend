@@ -7,6 +7,19 @@ const initialState = {
   error: null,
 };
 
+export const __getComment = createAsyncThunk(
+  "getComment",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await instance.get(`/api/posts/${payload.postId}`);
+      console.log(data.data.commentList);
+      return thunkAPI.fulfillWithValue(data.data.commentList);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const __addComment = createAsyncThunk(
   "addComment",
   async (payload, thunkAPI) => {
@@ -14,50 +27,7 @@ export const __addComment = createAsyncThunk(
       const [addComment, id] = payload;
       // payload에 전달되는 addComment와 id를 가져올 수 있다.
       const data = await instance.post(`/api/posts/${id}/comments`, addComment);
-      console.log(data);
-      return thunkAPI.fulfillWithValue(data.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
-export const __deleteComment = createAsyncThunk(
-  "deleteComment",
-  async (payload, thunkAPI) => {
-    try {
-      const data = await instance.delete(
-        `/api/posts/{postId}/comments/{commentId}`,
-        {
-          content: payload.content,
-        }
-      );
-      return thunkAPI.fulfillWithValue(data.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
-export const __changeComment = createAsyncThunk(
-  "changeComment",
-  async (payload, thunkAPI) => {
-    try {
-      const data = await instance.put(
-        `/api/posts/{postId}/comments/{commentId}`,
-        payload
-      );
-      return thunkAPI.fulfillWithValue(data.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
-export const __getComment = createAsyncThunk(
-  "getComment",
-  async (payload, thunkAPI) => {
-    try {
-      const data = await instance.get(`/api/posts/${payload.postId}`);
-      console.log(data);
-      console.log(payload);
+      console.log(data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -65,51 +35,85 @@ export const __getComment = createAsyncThunk(
   }
 );
 
-export const reviewSlice = createSlice({
+export const __deleteComment = createAsyncThunk(
+  "deleteComment",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await instance.delete(
+        `/api/posts/${payload.postId}/comments/${payload.commentId}`
+      );
+      console.log(data);
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __editComment = createAsyncThunk(
+  "editComment",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await instance.put(
+        `/api/posts/${payload.postId}/comments/${payload.commentId}`,
+        payload.editComment
+      );
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const commentSlice = createSlice({
   name: "comments",
   initialState,
   reducers: {},
   extraReducers: {
+    [__addComment.pending]: (state) => {
+      state.isLoading = true;
+    },
     [__addComment.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.comment.push(action.payload);
+      state.comments.push(action.payload);
     },
     [__addComment.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
-    [__addComment.pending]: (state) => {
-      state.isLoading = true;
+
+    [__deleteComment.pending]: (state) => {
+      state.isLoadig = true;
     },
     [__deleteComment.fulfilled]: (state, action) => {
       state.isLoadig = false;
-      state.comment = state.comment.filter(
-        (comment) => comment.id !== action.payload
+      state.comments = state.comments.filter(
+        (comment) => comment.commentId !== action.payload.commentId
       );
     },
     [__deleteComment.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
-    [__deleteComment.pending]: (state) => {
-      state.isLoadig = true;
-    },
-    [__changeComment.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.comment = state.comment.map((state) => {
-        if (state.id === action.payload.id) {
-          return { ...action.payload };
-        } else {
-          return state;
-        }
-      });
-    },
-    [__changeComment.pending]: (state, action) => {
+
+    [__editComment.pending]: (state, action) => {
       state.isLoading = true;
     },
-    [__changeComment.rejected]: (state, action) => {
+    [__editComment.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      const index = state.comments.findIndex(
+        (comment) => comment.commentId === action.payload.commentId
+      );
+      state.comments.splice(index, 1, action.payload);
+    },
+
+    [__editComment.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
+    },
+
+    [__getComment.pending]: (state) => {
+      state.isLoadig = true;
     },
     [__getComment.fulfilled]: (state, action) => {
       state.isLoadig = false;
@@ -119,11 +123,8 @@ export const reviewSlice = createSlice({
       state.isLoadig = false;
       state.error = action.payload;
     },
-    [__getComment.pending]: (state) => {
-      state.isLoadig = true;
-    },
   },
 });
 
-export const {} = reviewSlice.actions;
-export default reviewSlice.reducer;
+export const {} = commentSlice.actions;
+export default commentSlice.reducer;

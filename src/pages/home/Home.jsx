@@ -11,19 +11,23 @@ const Home = () => {
   const { isLoading, error, posts } = useSelector((state) => state.post);
 
   // 호출시 사용!!!
-  // useEffect(() => {
-  //   dispatch(__getPosts());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(__getPosts());
+  }, [dispatch]);
 
-  // if (isLoading) {
-  //   return <div>로딩 중....</div>;
-  // }
+  if (isLoading) {
+    return <div>로딩 중....</div>;
+  }
 
-  // if (error) {
-  //   return <div>{error.message}</div>;
-  // }
+  if (error) {
+    alert("홈에서 나온 에러메세지");
+  }
 
-  // console.log(posts);
+  const thumbnail = posts.map((post) => {
+    return `https://img.youtube.com/vi/${post.youtubeUrl.split("/")[4]}/0.jpg`;
+  });
+
+  console.log(thumbnail);
 
   return (
     <div className="homeMain">
@@ -32,33 +36,31 @@ const Home = () => {
         <div className="categoryBtns">
           <CategoryBtn
             imgUrl="/image/집중하고 싶을 때.png"
-            onClick={() => navigate("/category/집중하고 싶을 때 좋은 노래")}
+            onClick={() => navigate("/category/집중하고 싶을 때")}
           >
             집중하고 싶을 때
           </CategoryBtn>
           <CategoryBtn
             imgUrl="/image/잠깨우고 싶을 때.png"
-            onClick={() => navigate("/category/잠깨고 싶을 때 좋은 노래")}
+            onClick={() => navigate("/category/잠 깨우고 싶을 때")}
           >
             잠깨고 싶을 때
           </CategoryBtn>
           <CategoryBtn
             imgUrl="/image/에러가 뜰 때.png"
-            onClick={() => navigate("/category/에러가 뜰 때 좋은 노래")}
+            onClick={() => navigate("/category/에러가 뜰 때")}
           >
             에러가 뜰 때
           </CategoryBtn>
           <CategoryBtn
             imgUrl="/image/TIL쓸 때.png"
-            onClick={() => navigate("/category/TIL or WIL 작성할 때 좋은 노래")}
+            onClick={() => navigate("/category/TIL or WIL 작성할 때")}
           >
             TIL/WIL 작성할 때
           </CategoryBtn>
           <CategoryBtn
             imgUrl="/image/팀원과 트러블이 있을 때.png"
-            onClick={() =>
-              navigate("/category/팀원과 트러블 있을 때 좋은 노래")
-            }
+            onClick={() => navigate("/category/팀원과 트러블 있을 때")}
           >
             팀원과 트러블 있을 때
           </CategoryBtn>
@@ -68,10 +70,13 @@ const Home = () => {
       <div className="best">
         <h2>Best Playlist Top 3🏆️</h2>
         <div className="bestCards">
-          {posts?.map((post) => {
+          {posts?.map((post, i) => {
             return (
-              <div className="bestCard">
-                <img src={post.youtubeUrl}></img>
+              <div
+                className="bestCard"
+                onClick={() => navigate(`/detail/${post.postId}`)}
+              >
+                <img className="bestCardImage" src={thumbnail[i]}></img>
                 <div className="bestCardInfo">
                   <div>{post.title}</div>
                   <div>❤️ {post.likeCount}</div>
@@ -79,29 +84,6 @@ const Home = () => {
               </div>
             );
           })}
-          <div className="bestCard">
-            <img src="https://music-phinf.pstatic.net/20221215_58/1671066897772zjqpJ_PNG/vv.png?type=f310_182"></img>
-            <div className="bestCardInfo">
-              <div>공부할 때 듣는 플레이리스트</div>
-              <div>❤️ 20</div>
-            </div>
-          </div>
-
-          <div className="bestCard">
-            <img src="https://music-phinf.pstatic.net/20221215_58/1671066897772zjqpJ_PNG/vv.png?type=f310_182"></img>
-            <div className="bestCardInfo">
-              <div>공부할 때 듣는 플레이리스트</div>
-              <div>❤️ 15</div>
-            </div>
-          </div>
-
-          <div className="bestCard">
-            <img src="https://music-phinf.pstatic.net/20221215_58/1671066897772zjqpJ_PNG/vv.png?type=f310_182"></img>
-            <div className="bestCardInfo">
-              <div>공부할 때 듣는 플레이리스트</div>
-              <div>❤️ 10</div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

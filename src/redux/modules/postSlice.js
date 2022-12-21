@@ -4,7 +4,11 @@ import { instance } from "../../core/api/axios";
 
 const initialState = {
   posts: [],
+  categoryPosts: [],
   post: {},
+  checkPostLike: null,
+  likeCount: null,
+  isLogin: false,
   isLoading: false,
   error: null,
 };
@@ -40,7 +44,8 @@ export const __deletePost = createAsyncThunk(
   "deletePost",
   async (payload, thunkAPI) => {
     try {
-      await instance.delete(`/api/posts/${payload}`);
+      const data = await instance.delete(`/api/posts/${payload}`);
+      console.log(data);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -52,8 +57,21 @@ export const __addPost = createAsyncThunk(
   "addPost",
   async (payload, thunkAPI) => {
     try {
-      const data = await instance.post("/api/posts");
+      const data = await instance.post("/api/posts", payload);
       return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __editPost = createAsyncThunk(
+  "editPost",
+  async (payload, thunkAPI) => {
+    try {
+      const [newPost, id] = payload;
+      const data = await instance.put(`/api/posts/${id}`, newPost);
+      return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -66,6 +84,21 @@ export const __postLike = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await instance.post(`/api/posts/${payload}/like`);
+      console.log(data);
+      return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __getCategoryPost = createAsyncThunk(
+  "getCategoryPost",
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await instance.get(
+        `/api/posts/category?category=${payload}`
+      );
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -76,7 +109,12 @@ export const __postLike = createAsyncThunk(
 export const postSlice = createSlice({
   name: "post",
   initialState,
-  reducers: {},
+  reducers: {
+    changeIsLogin(state, action) {
+      console.log(action.payload);
+      return (state.isLogin = !action.payload);
+    },
+  },
   extraReducers: {
     [__getPosts.pending]: (state) => {
       state.isLoading = true;
@@ -96,6 +134,8 @@ export const postSlice = createSlice({
     [__getPost.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.post = action.payload;
+      state.checkPostLike = action.payload.checkPostLike;
+      state.likeCount = action.payload.likeCount;
     },
     [__getPost.rejected]: (state, action) => {
       state.isLoading = false;
@@ -107,12 +147,14 @@ export const postSlice = createSlice({
     },
     [__postLike.fulfilled]: (state, action) => {
       state.isLoading = false;
-      if (state.post.pushLike === true) {
-        state.post.likeCount -= 1;
+
+      console.log(state.checkPostLike);
+      if (state.checkPostLike === true) {
+        state.likeCount += 1;
       } else {
-        state.post.likeCount += 1;
+        state.likeCount -= 1;
       }
-      state.post.pushLike = !state.post.pushLike;
+      state.checkPostLike = !state.checkPostLike;
     },
     [__postLike.rejected]: (state, action) => {
       state.isLoading = false;
@@ -131,6 +173,7 @@ export const postSlice = createSlice({
     [__deletePost.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
+      console.log(action.payload);
     },
 
     [__addPost.pending]: (state) => {
@@ -143,9 +186,35 @@ export const postSlice = createSlice({
     [__addPost.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
+      // alert(action.payload.response.data.errorMessage);
+    },
+
+    [__editPost.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__editPost.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.post = action.payload;
+    },
+    [__editPost.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+    [__getCategoryPost.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__getCategoryPost.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.categoryPosts = action.payload;
+    },
+    [__getCategoryPost.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
     },
   },
 });
 
 export const {} = postSlice.actions;
+export let { changeIsLogin } = postSlice.actions;
 export default postSlice.reducer;

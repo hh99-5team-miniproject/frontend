@@ -1,29 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { __addPost } from "../redux/modules/postSlice";
+import { __editPost, __getPost } from "../redux/modules/postSlice";
 
-const Post = () => {
+const EditPost = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { error } = useSelector((state) => state.post);
 
-  const [addPost, setAddPost] = useState({
-    title: "",
-    youtubeUrl: "",
-    content: "",
-    category: "",
-  });
-  const onClickAddPostHandler = () => {
-    console.log(addPost);
-    dispatch(__addPost(addPost));
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [content, setContent] = useState("");
+  const [youtubeUrl, setYoutubeUrl] = useState("");
+  const { id } = useParams();
 
-    if (error) {
-      alert(error.response.data.errorMessage);
-    } else {
-      window.location.href = `/category/${addPost.category}`;
+  useEffect(() => {
+    dispatch(__getPost(Number(id)));
+  }, [dispatch]);
+
+  const selected = useSelector((state) => state.post.post);
+
+  useEffect(() => {
+    if (selected) {
+      setTitle(selected.title);
+      setCategory(selected.category);
+      setContent(selected.content);
+      setYoutubeUrl(selected.youtubeUrl);
     }
+  }, [selected]);
+
+  const onClickEditPostHandler = () => {
+    const newPost = {
+      title: title,
+      youtubeUrl: youtubeUrl,
+      content: content,
+      category: category,
+    };
+    dispatch(__editPost([newPost, id]));
+    // navigate(`/category/${newPost.category}`);
+    window.location.href = `/category/${newPost.category}`;
+    console.log(newPost);
   };
 
   return (
@@ -33,8 +49,9 @@ const Post = () => {
           <div>제목</div>
           <Input
             width="620px"
+            value={title}
             onChange={(e) => {
-              setAddPost({ ...addPost, title: e.target.value });
+              setTitle(e.target.value);
             }}
           ></Input>
         </Title>
@@ -43,37 +60,38 @@ const Post = () => {
             <div>URL</div>
             <Input
               width="300px"
+              value={youtubeUrl}
               onChange={(e) => {
-                setAddPost({ ...addPost, youtubeUrl: e.target.value });
+                setYoutubeUrl(e.target.value);
               }}
             ></Input>
           </Video>
           <Select
+            value={category}
             onChange={(e) => {
-              setAddPost({ ...addPost, category: e.target.value });
+              setCategory(e.target.value);
             }}
           >
             <option value="" selected>
               카테고리를 선택해주세요
             </option>
             <option value="집중하고 싶을 때">집중하고 싶을 때</option>
-            <option value="잠 깨우고 싶을 때">잠 깨우고 싶을 때</option>
-            <option value="에러가 사라지질 않을때">에러가 뜰 때</option>
+            <option value="잠깨고 싶을 때">잠깨고 싶을 때</option>
+            <option value="에러가 뜰 때">에러가 뜰 때</option>
             <option value="TIL or WIL 작성할 때">TIL/WIL 작성할 때</option>
-            <option value="팀원과 트러블이 있을 때">
-              팀원과 트러블 있을 때
-            </option>
+            <option value="팀원과 트러블 있을 때">팀원과 트러블 있을 때</option>
           </Select>
         </Second>
         <Content>
           <p>내용</p>
           <Textarea
+            value={content}
             onChange={(e) => {
-              setAddPost({ ...addPost, content: e.target.value });
+              setContent(e.target.value);
             }}
           ></Textarea>
         </Content>
-        <Write onClick={onClickAddPostHandler}>등록하기</Write>
+        <Write onClick={onClickEditPostHandler}>등록하기</Write>
       </Wrap>
     </div>
   );
@@ -161,4 +179,4 @@ const Select = styled.select`
 const Second = styled.div`
   display: flex;
 `;
-export default Post;
+export default EditPost;
