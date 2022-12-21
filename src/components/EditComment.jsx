@@ -10,20 +10,20 @@ import {
   __editComment,
 } from "../redux/modules/commentSlice";
 
-const EditComment = ({ comment }) => {
+const EditComment = ({ comment, isLogin }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const { isLoading, error, comments } = useSelector((state) => state.comment);
+  const { isLoading, error } = useSelector((state) => state.comment);
 
-  useEffect(() => {
-    dispatch(__getComment({ postId: id }));
-  }, [dispatch, id]);
-
-  console.log(comments);
+  console.log(comment);
 
   const onClickDeleteCommentHandler = (commentId) => {
-    dispatch(__deleteComment({ postId: id, commentId: commentId }));
+    if (isLogin) {
+      dispatch(__deleteComment({ postId: id, commentId: commentId }));
+    } else {
+      alert("로그인 후 이용가능합니다.");
+    }
   };
   const [isCommentChange, setIsCommentChange] = useState(false);
 
@@ -31,31 +31,36 @@ const EditComment = ({ comment }) => {
     comment: "",
   });
 
+  console.log(isLogin);
   const onClickEditCommentButtonHandler = (commentId) => {
-    if (isCommentChange === false) {
-      setIsCommentChange(true);
+    if (isLogin) {
+      if (isCommentChange === false) {
+        setIsCommentChange(true);
+      } else {
+        dispatch(
+          __editComment({
+            editComment: editComment,
+            postId: id,
+            commentId: commentId,
+          })
+        );
+        setIsCommentChange(false);
+      }
     } else {
-      dispatch(
-        __editComment({
-          editComment: editComment,
-          postId: id,
-          commentId: commentId,
-        })
-      );
-      setIsCommentChange(false);
+      alert("로그인 후 이용가능합니다.");
     }
   };
 
-  if (isLoading) {
-    return <div>댓글 불러오는 중...</div>;
-  }
+  //   if (isLoading) {
+  //     return <div>댓글 불러오는 중...</div>;
+  //   }
 
-  if (error) {
-    alert(
-      "댓글 수정에서 나온 에러메세지",
-      "타인의 댓글을 수정 및 삭제할 수 없습니다!"
-    );
-  }
+  //   if (error) {
+  //     console.log(
+  //       "댓글 수정에서 나온 에러메세지",
+  //       "타인의 댓글을 수정 및 삭제할 수 없습니다!"
+  //     );
+  //   }
 
   return (
     <Div>

@@ -14,30 +14,44 @@ const Detail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { isLoading, error, post, checkPostLike, likeCount } = useSelector(
-    (state) => state.post
+
+  const isLoading = useSelector(
+    (state) => state.post.isLoading // 하나가 바뀌어도 다 바뀐다.
+  );
+  const post = useSelector(
+    (state) => state.post.post // 하나가 바뀌어도 다 바뀐다.
+  );
+  const error = useSelector(
+    (state) => state.post.error // 하나가 바뀌어도 다 바뀐다.
+  );
+  const likeCount = useSelector(
+    (state) => state.post.likeCount // 하나가 바뀌어도 다 바뀐다.
+  );
+  const checkPostLike = useSelector(
+    (state) => state.post.checkPostLike // 하나가 바뀌어도 다 바뀐다.
   );
 
-  // 임시로 작성해봄 true or false
-  // const { pushLike } = useSelector((state) => state.post.post);
-  // const { likeCount } = useSelector((state) => state.post.post);
-  const [isLogin, setIslogin] = useState(true);
+  const postError = useSelector(
+    (state) => state.post.postError // 하나가 바뀌어도 다 바뀐다.
+  );
 
-  // 호출시 사용!!!
+  const [isLogin, setIslogin] = useState(false);
+
   useEffect(() => {
-    if (localStorage.getItem("id") === true) {
+    // console.log(localStorage.getItem("id") !== null);
+    if (localStorage.getItem("id") !== null) {
       setIslogin(true);
     }
-    console.log(isLogin);
+    // console.log(isLogin);
     dispatch(__getPost(Number(id)));
   }, [dispatch, id]);
 
   // console.log(post);
-  console.log(checkPostLike);
-  console.log(likeCount);
+  // console.log(checkPostLike);
+  // console.log(likeCount);
 
   const onClickEditPostHandler = () => {
-    if (isLogin) {
+    if (isLogin === true) {
       navigate(`/editpost/${id}`);
     } else {
       alert("로그인 후 이용가능합니다.");
@@ -45,16 +59,22 @@ const Detail = () => {
   };
 
   const onClickDeletePostHandler = () => {
-    // if (isLogin) {
-    dispatch(__deletePost(Number(id)));
-    navigate("/");
-    // } else {
-    //   alert("로그인 후 이용가능합니다.");
-    // }
+    if (isLogin === true) {
+      dispatch(__deletePost(id));
+      if (postError) {
+        console.log(postError.response.data.errorMessage);
+        alert(postError.response.data.errorMessage);
+      } else {
+        navigate("/");
+      }
+      // 갈라서 하려면 에러를 유형별로 추가
+    } else {
+      alert("로그인 후 이용가능합니다.");
+    }
   };
 
   const onClickloginHeartHandler = () => {
-    dispatch(__postLike(Number(id)));
+    dispatch(__postLike(id));
   };
 
   const onClickNonloginHeartHandler = () => {
@@ -66,9 +86,10 @@ const Detail = () => {
   }
   console.log(isLogin);
 
-  if (error) {
-    alert("디테일에서 나온 에러메세지", error.response.data.errorMessage);
-  }
+  // if (error) {
+  //   alert("디테일에서 나온 에러메세지", error.response.data.errorMessage);
+  //   console.log("디테일에서 나온 에러메세지", error.response.data.errorMessage);
+  // }
 
   return (
     <Stwrap>

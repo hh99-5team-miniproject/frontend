@@ -94,10 +94,12 @@ export const commentSlice = createSlice({
     [__deleteComment.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
+      // console.log(action.payload.response.data.errorMessage);
+      alert(action.payload.response.data.errorMessage);
     },
 
     [__editComment.pending]: (state, action) => {
-      state.isLoading = true;
+      // state.isLoading = true;
     },
     [__editComment.fulfilled]: (state, action) => {
       state.isLoading = false;
@@ -110,6 +112,7 @@ export const commentSlice = createSlice({
     [__editComment.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
+      alert(action.payload.response.data.errorMessage);
     },
 
     [__getComment.pending]: (state) => {

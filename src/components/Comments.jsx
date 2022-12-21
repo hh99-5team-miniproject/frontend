@@ -21,23 +21,27 @@ const Comments = ({ isLogin }) => {
     comment: "",
   });
 
-  const onClickAddCommentHandler = () => {
-    // if (isLogin) {
-    dispatch(__addComment([addComment, id]));
-    setAddComment({
-      comment: "",
-    });
-    // } else {
-    //   alert("로그인 후 이용가능합니다.");
-    // }
-  };
+  useEffect(() => {
+    dispatch(__getComment({ postId: id }));
+  }, [dispatch, id]);
 
+  const onClickAddCommentHandler = () => {
+    if (isLogin) {
+      dispatch(__addComment([addComment, id]));
+      setAddComment({
+        comment: "",
+      });
+    } else {
+      alert("로그인 후 이용가능합니다.");
+    }
+  };
+  console.log(comments);
   return (
     <Wrap>
       <Reviews>Comments</Reviews>
 
       {comments.map((comment) => (
-        <EditComment comment={comment} />
+        <EditComment comment={comment} isLogin={isLogin} />
       ))}
 
       <Reviewtext

@@ -10,6 +10,7 @@ const initialState = {
   likeCount: null,
   isLogin: false,
   isLoading: false,
+  postError: null,
   error: null,
 };
 
@@ -48,6 +49,7 @@ export const __deletePost = createAsyncThunk(
       console.log(data);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
+      // alert(error.response.data.errorMessage);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -172,7 +174,7 @@ export const postSlice = createSlice({
     },
     [__deletePost.rejected]: (state, action) => {
       state.isLoading = false;
-      state.error = action.payload;
+      state.postError = action.payload;
       console.log(action.payload);
     },
 

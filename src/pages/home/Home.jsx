@@ -8,20 +8,21 @@ import { __getPosts } from "../../redux/modules/postSlice";
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoading, error, posts } = useSelector((state) => state.post);
+  const { error, posts } = useSelector((state) => state.post);
 
   // 호출시 사용!!!
   useEffect(() => {
     dispatch(__getPosts());
   }, [dispatch]);
 
-  if (isLoading) {
-    return <div>로딩 중....</div>;
-  }
+  // if (isLoading) {
+  //   return <div>로딩 중....</div>;
+  // }
 
-  if (error) {
-    alert("홈에서 나온 에러메세지");
-  }
+  // if (error) {
+  //   alert("홈에서 나온 에러메세지", error.response.data.errorMessage);
+  //   console.log("홈에서 나온 에러메세지", error.response.data.errorMessage);
+  // }
 
   const thumbnail = posts.map((post) => {
     return `https://img.youtube.com/vi/${post.youtubeUrl.split("/")[4]}/0.jpg`;
