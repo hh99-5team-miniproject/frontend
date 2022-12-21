@@ -26,7 +26,7 @@ export const __deleteComment = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await instance.delete(
-        "/api/posts/{postId}/comments/{commentId}",
+        `/api/posts/{postId}/comments/{commentId}`,
         {
           content: payload.content,
         }
@@ -42,7 +42,7 @@ export const __changeComment = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await instance.put(
-        "/api/posts/{postId}/comments/{commentId}",
+        `/api/posts/{postId}/comments/{commentId}`,
         payload
       );
       return thunkAPI.fulfillWithValue(data.data);
