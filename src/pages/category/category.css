@@ -1,0 +1,11 @@
+.categoryMain {
+  padding: 0px 0px 0px 40px;
+  min-height: 700px;
+  display: flex;
+}
+.categorycards {
+  margin-left: 400px;
+}
+.categorycards > h2 {
+  margin-top: 0px;
+}

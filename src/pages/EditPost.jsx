@@ -1,40 +1,62 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { __addPost } from "../redux/modules/postSlice";
+import { __editPost, __getPost } from "../redux/modules/postSlice";
 
-const Post = () => {
+const EditPost = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { error } = useSelector((state) => state.post);
 
-  const [addPost, setAddPost] = useState({
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [content, setContent] = useState("");
+  const [youtubeUrl, setYoutubeUrl] = useState("");
+  const { id } = useParams();
+
+  const [editPost, seteditPost] = useState({
     title: "",
     youtubeUrl: "",
     content: "",
     category: "",
   });
-  const onClickAddPostHandler = () => {
-    console.log(addPost);
 
-    if (addPost.title === "") {
+  const selected = useSelector((state) => state.post.post);
+
+  useEffect(() => {
+    dispatch(__getPost(Number(id)));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (selected) {
+      setTitle(selected.title);
+      setCategory(selected.category);
+      setContent(selected.content);
+      setYoutubeUrl(selected.youtubeUrl);
+    }
+  }, [selected]);
+
+  const onClickEditPostHandler = () => {
+    const newPost = {
+      title: title,
+      youtubeUrl: youtubeUrl,
+      content: content,
+      category: category,
+    };
+    //dispatch(__editPost([newPost, id]));
+    console.log(newPost);
+
+    if (newPost.title === "") {
       alert("제목을 입력해주세요.");
-    } else if (addPost.youtubeUrl === "") {
+    } else if (newPost.youtubeUrl === "") {
       alert("URL을 입력해주세요.");
-    } else if (addPost.category === "") {
+    } else if (newPost.category === undefined) {
       alert("카테고리를 선택해주세요.");
-    } else if (addPost.content === "") {
+    } else if (newPost.content === "") {
       alert("내용을 입력해주세요.");
     } else {
-      dispatch(__addPost(addPost));
+      dispatch(__editPost([newPost, id]));
     }
-
-    // if (error) {
-    //   alert(error.response.data.errorMessage);
-    // } else {
-    //   window.location.href = `/category/${addPost.category}`;
-    // }
   };
 
   return (
@@ -42,26 +64,30 @@ const Post = () => {
       <Wrap>
         <Title>
           <div>제목</div>
-          <Titleinput
+          <Input
             width="620px"
+            value={title}
             onChange={(e) => {
-              setAddPost({ ...addPost, title: e.target.value });
+              setTitle(e.target.value);
             }}
-          ></Titleinput>
+          ></Input>
         </Title>
         <Second>
           <Video>
             <div>URL</div>
-            <Videoinput
+            <Input
               width="300px"
+              value={youtubeUrl}
               onChange={(e) => {
-                setAddPost({ ...addPost, youtubeUrl: e.target.value });
+                setYoutubeUrl(e.target.value);
               }}
-            ></Videoinput>
+            ></Input>
           </Video>
           <Select
+            value={category}
             onChange={(e) => {
-              setAddPost({ ...addPost, category: e.target.value });
+              setCategory(e.target.value);
+              // console.log(category);
             }}
           >
             <option value="" selected>
@@ -79,12 +105,13 @@ const Post = () => {
         <Content>
           <p>내용</p>
           <Textarea
+            value={content}
             onChange={(e) => {
-              setAddPost({ ...addPost, content: e.target.value });
+              setContent(e.target.value);
             }}
           ></Textarea>
         </Content>
-        <Write onClick={onClickAddPostHandler}>등록하기</Write>
+        <Write onClick={onClickEditPostHandler}>등록하기</Write>
       </Wrap>
     </div>
   );
@@ -111,16 +138,7 @@ const Title = styled.div`
     margin-right: 42px;
   }
 `;
-const Titleinput = styled.input`
-  width: ${(props) => props.width};
-  height: 40px;
-  background-color: white;
-  color: black;
-  outline: none;
-  border-radius: 15px;
-  font-size: 20px;
-`;
-const Videoinput = styled.input`
+const Input = styled.input`
   width: ${(props) => props.width};
   height: 40px;
   background-color: white;
@@ -181,4 +199,4 @@ const Select = styled.select`
 const Second = styled.div`
   display: flex;
 `;
-export default Post;
+export default EditPost;

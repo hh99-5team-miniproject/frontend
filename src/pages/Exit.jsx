@@ -1,29 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { deleteUser } from "../core/api/login/queries";
 import { useInput } from "../core/utils/useInput";
-import { postSignup } from "../core/api/login/queries";
+import { useDispatch, useSelector } from "react-redux";
+import { changeIsLogin } from "../redux/modules/postSlice";
 
-const Register = () => {
-  const [loginId, setloginId] = useInput();
-  const [nickname, setNickName] = useInput();
-  const [password, setPassword] = useInput();
+const Exit = () => {
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isLogin } = useSelector((state) => state.post);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    postSignup({
-      loginId,
-      nickname,
-      password,
+    deleteUser({
+      password: password,
     })
       .then((res) => {
-        console.log(res);
-        console.log("성공시 출력!!!");
-        navigate("/login");
+        localStorage.removeItem("id");
+        localStorage.removeItem("nickname");
+        window.location.href = "/";
       })
       .catch((error) => {
-        alert(error.response.data.errorMessage);
+        const msg = error.response.data.errorMessage;
+        alert(msg);
+        console.log("회원가입 실패");
       });
   };
 
@@ -36,34 +38,24 @@ const Register = () => {
               src="/image/logo login.png"
               style={{ width: "100px", height: "120px" }}
             />
-            <div>Sign Up</div>
+            <div style={{ marginLeft: "10px" }}>Exit</div>
           </Title>
-          <p>ID</p>
-          <Input
-            type="text"
-            id="id"
-            value={loginId}
-            onChange={setloginId}
-            autoComplete="off"
-          ></Input>
-          <p>PW</p>
+
+          <p>PW </p>
           <Input
             type="password"
             id="password"
             value={password}
-            onChange={setPassword}
-            autoComplete="off"
-          ></Input>
-          <p>NICKNAME</p>
-          <Input
-            type="text"
-            id="nickname"
-            value={nickname}
-            onChange={setNickName}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              console.log(password);
+            }}
             autoComplete="off"
           ></Input>
 
-          <Btn onClick={onSubmit}>Sign Up</Btn>
+          <div>
+            <Btn onClick={onSubmit}>Exit</Btn>
+          </div>
         </Container>
       </Stwrap>
     </div>
@@ -80,13 +72,14 @@ const Stwrap = styled.div`
   background-size: cover;
 `;
 const Title = styled.div`
-  font-size: 70px;
+  font-size: 80px;
+  font-weight: lighter;
+  margin-bottom: 25px;
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
   align-items: center;
   div {
-    font-size: 60px;
+    font-size: 65px;
   }
 `;
 const Container = styled.div`
@@ -110,14 +103,15 @@ const Input = styled.input`
   border-radius: 15px;
   width: 300px;
   height: 35px;
-  background-color: white;
-  color: black;
+  box-shadow: 1px gray;
   outline: none;
+  background-color: white;
   font-size: 20px;
+  color: black;
 `;
 const Btn = styled.button`
-  width: 308px;
-  height: 42px;
+  width: 300px;
+  height: 40px;
   background-color: transparent;
   color: white;
   border: 3px solid white;
@@ -131,4 +125,4 @@ const Btn = styled.button`
   }
 `;
 
-export default Register;
+export default Exit;

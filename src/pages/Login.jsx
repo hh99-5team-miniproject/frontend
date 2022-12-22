@@ -1,27 +1,75 @@
 import React from "react";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { postLogin } from "../core/api/login/queries";
+import { useInput } from "../core/utils/useInput";
+import { useDispatch, useSelector } from "react-redux";
+import { changeIsLogin } from "../redux/modules/postSlice";
 
 const Login = () => {
-  //const navigate = useNavigate();
+  const [id, setId] = useInput();
+  const [password, setPassword] = useInput();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isLogin } = useSelector((state) => state.post);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    postLogin({
+      loginId: id,
+      password: password,
+    })
+      .then((res) => {
+        localStorage.setItem("id", res.headers.authorization);
+        localStorage.setItem("nickname", res.data.nickname);
+        window.location.href = "/";
+      })
+      .catch((error) => {
+        const msg = error.response.data.errorMessage;
+        alert(msg);
+        console.log("로그인 실패");
+        navigate("/login");
+      });
+  };
 
   return (
     <div>
       <Stwrap>
         <Container>
-          <Title>로그인</Title>
+          <Title>
+            <img
+              src="/image/logo login.png"
+              style={{ width: "100px", height: "120px" }}
+            />
+            <div style={{ marginLeft: "10px" }}>Login</div>
+          </Title>
+
           <p>ID</p>
-          <Input></Input>
+          <Input
+            type="text"
+            id="nickname"
+            value={id}
+            onChange={setId}
+            autoComplete="off"
+          ></Input>
+
           <p>PW </p>
-          <Input></Input>
-          <p>CHECK PW </p>
-          <Input></Input>
-          <p>NICKNAME</p>
-          <p>
-            <Input></Input>
-          </p>
-          <Btn>Sign Up</Btn>
-          <Btn>Log In</Btn>
+          <Input
+            type="password"
+            id="password"
+            value={password}
+            onChange={setPassword}
+            autoComplete="off"
+          ></Input>
+
+          <div>
+            <Btn margin="20px" onClick={onSubmit}>
+              Log In
+            </Btn>
+            <Btn margin="0" onClick={() => navigate("/register")}>
+              Sign Up
+            </Btn>
+          </div>
         </Container>
       </Stwrap>
     </div>
@@ -38,7 +86,15 @@ const Stwrap = styled.div`
   background-size: cover;
 `;
 const Title = styled.div`
-  font-size: 100px;
+  font-size: 80px;
+  font-weight: lighter;
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  div {
+    font-size: 65px;
+  }
 `;
 const Container = styled.div`
   color: white;
@@ -48,22 +104,34 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
   text-align: center;
   font-size: 20px;
+  border: 3px solid white;
+  border-radius: 30px;
+  padding: 35px 50px 50px 50px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 const Input = styled.input`
-  border-radius: 30px;
+  border-radius: 15px;
   width: 300px;
-  height: 40px;
+  height: 35px;
+  box-shadow: 1px gray;
+  outline: none;
+  background-color: white;
+  font-size: 20px;
+  color: black;
 `;
 const Btn = styled.button`
-  width: 200px;
+  width: 144px;
   height: 40px;
   background-color: transparent;
   color: white;
   border: 3px solid white;
-  margin-top: 20px;
-  margin-right: 10px;
-  margin-left: 10px;
-  border-radius: 30px;
+  margin-top: 35px;
+  margin-right: ${(props) => props.margin};
+  border-radius: 20px;
   font-size: 20px;
   &:hover {
     background-color: blueviolet;
