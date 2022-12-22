@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { deleteUser } from "../core/api/login/queries";
@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeIsLogin } from "../redux/modules/postSlice";
 
 const Exit = () => {
-  const [password, setPassword] = useInput();
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLogin } = useSelector((state) => state.post);
@@ -46,7 +46,10 @@ const Exit = () => {
             type="password"
             id="password"
             value={password}
-            onChange={setPassword}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              console.log(password);
+            }}
             autoComplete="off"
           ></Input>
 
