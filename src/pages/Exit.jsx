@@ -25,7 +25,7 @@ const Exit = () => {
       .catch((error) => {
         const msg = error.response.data.errorMessage;
         alert(msg);
-        console.log("회원가입 실패");
+        console.log("회원탈퇴 실패!");
       });
   };
 
@@ -38,7 +38,7 @@ const Exit = () => {
               src="/image/logo login.png"
               style={{ width: "100px", height: "120px" }}
             />
-            <div style={{ marginLeft: "10px" }}>Exit</div>
+            <div style={{ marginLeft: "10px" }}>회원탈퇴</div>
           </Title>
 
           <p>PW </p>
@@ -54,7 +54,7 @@ const Exit = () => {
           ></Input>
 
           <div>
-            <Btn onClick={onSubmit}>Exit</Btn>
+            <Btn onClick={onSubmit}>회원탈퇴</Btn>
           </div>
         </Container>
       </Stwrap>
@@ -79,7 +79,7 @@ const Title = styled.div`
   justify-content: center;
   align-items: center;
   div {
-    font-size: 65px;
+    font-size: 50px;
   }
 `;
 const Container = styled.div`
