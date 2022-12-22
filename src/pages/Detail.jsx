@@ -9,7 +9,11 @@ import {
   __postLike,
   __deletePost,
 } from "../redux/modules/postSlice";
+<<<<<<< HEAD
 import Heart from "../components/Heart";
+=======
+import Categorybtn from "../components/Categorybtn";
+>>>>>>> 7cdd577c27f76ac300f33266e474e88553e884d4
 
 const Detail = () => {
   const navigate = useNavigate();
@@ -83,6 +87,8 @@ const Detail = () => {
 
   return (
     <Stwrap>
+      <Categorybtn />
+      <Username>😺 작성자 : {post.nickname} 님</Username>
       <Title>{post.title}</Title>
 
       <Videoarea
@@ -140,6 +146,11 @@ const Title = styled.div`
   color: white;
   margin-bottom: 20px;
   width: 850px;
+`;
+const Username = styled.div`
+  margin-bottom: 10px;
+  width: 850px;
+  text-align: left;
 `;
 const Videoarea = styled.iframe`
   width: 850px;

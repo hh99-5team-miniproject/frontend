@@ -17,7 +17,25 @@ const Post = () => {
   });
   const onClickAddPostHandler = () => {
     console.log(addPost);
-    dispatch(__addPost(addPost));
+
+    if (addPost.title === "") {
+      alert("제목을 입력해주세요.");
+    } else if (addPost.youtubeUrl === "") {
+      alert("URL을 입력해주세요.");
+    } else if (addPost.category === "") {
+      alert("카테고리를 선택해주세요.");
+    } else if (addPost.content === "") {
+      alert("내용을 입력해주세요.");
+    } else {
+      dispatch(__addPost(addPost));
+    }
+    //값보다 렌더링이 빨리될 경우 값이 안 들어옴. 새로고침하면 생김.
+
+    // if (error) {
+    //   alert(error.response.data.errorMessage);
+    // } else {
+    //   window.location.href = `/category/${addPost.category}`;
+    // }
   };
 
   return (
@@ -25,22 +43,22 @@ const Post = () => {
       <Wrap>
         <Title>
           <div>제목</div>
-          <Input
+          <Titleinput
             width="620px"
             onChange={(e) => {
               setAddPost({ ...addPost, title: e.target.value });
             }}
-          ></Input>
+          ></Titleinput>
         </Title>
         <Second>
           <Video>
             <div>URL</div>
-            <Input
+            <Videoinput
               width="300px"
               onChange={(e) => {
                 setAddPost({ ...addPost, youtubeUrl: e.target.value });
               }}
-            ></Input>
+            ></Videoinput>
           </Video>
           <Select
             onChange={(e) => {
@@ -52,7 +70,7 @@ const Post = () => {
             </option>
             <option value="집중하고 싶을 때">집중하고 싶을 때</option>
             <option value="잠 깨우고 싶을 때">잠 깨우고 싶을 때</option>
-            <option value="에러가 사라지질 않을때">에러가 뜰 때</option>
+            <option value="에러가 뜰 때">에러가 뜰 때</option>
             <option value="TIL or WIL 작성할 때">TIL/WIL 작성할 때</option>
             <option value="팀원과 트러블이 있을 때">
               팀원과 트러블 있을 때
@@ -94,7 +112,16 @@ const Title = styled.div`
     margin-right: 42px;
   }
 `;
-const Input = styled.input`
+const Titleinput = styled.input`
+  width: ${(props) => props.width};
+  height: 40px;
+  background-color: white;
+  color: black;
+  outline: none;
+  border-radius: 15px;
+  font-size: 20px;
+`;
+const Videoinput = styled.input`
   width: ${(props) => props.width};
   height: 40px;
   background-color: white;
