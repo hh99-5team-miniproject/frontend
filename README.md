@@ -37,7 +37,7 @@ redux toolkit, styled component, react-router-dom, axios
 - 로그인한 경우 자신의 게시물 및 댓글 등록, 수정, 삭제 가능
 - css 파일과 styled component 혼용, 조건에 따라 달라지는 경우 styled component 사용
 
-- 경고창 뜨는 case
+### 경고창 뜨는 case
 - 로그아웃한 경우 혹은 로그인을 안한 경우 게시물 및 댓글에 달린 수정, 삭제 버튼, 글 작성 버튼, 댓글 등록 버튼, 좋아요 클릭 시
 - 타인의 게시물 수정 및 삭제 시도 시
 - 타인의 댓글 수정 삭제 시도 시
