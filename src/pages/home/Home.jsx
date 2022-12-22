@@ -43,7 +43,7 @@ const Home = () => {
           </CategoryBtn>
           <CategoryBtn
             imgUrl="/image/잠깨우고 싶을 때.png"
-            onClick={() => navigate("/category/잠 깨우고 싶을 때")}
+            onClick={() => navigate("/category/잠 깨고 싶을 때")}
           >
             잠깨고 싶을 때
           </CategoryBtn>
@@ -61,7 +61,7 @@ const Home = () => {
           </CategoryBtn>
           <CategoryBtn
             imgUrl="/image/팀원과 트러블이 있을 때.png"
-            onClick={() => navigate("/category/팀원과 트러블 있을 때")}
+            onClick={() => navigate("/category/팀원과 트러블이 있을 때")}
           >
             팀원과 트러블 있을 때
           </CategoryBtn>

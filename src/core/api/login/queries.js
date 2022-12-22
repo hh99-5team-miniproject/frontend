@@ -28,3 +28,10 @@ export const postSignup = async (post) => {
   alert("회원가입 성공");
   return data;
 };
+
+export const deleteUser = async (post) => {
+  const data = await instance.delete(`/api/deleteUser/${post}`);
+  alert(data.response.data.errorMessage);
+  console.log("회원 탈퇴 성공!");
+  return data;
+};

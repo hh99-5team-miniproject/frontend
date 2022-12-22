@@ -20,9 +20,9 @@ const Category = () => {
     dispatch(__getCategoryPost(id));
   }, [id, dispatch]);
 
-  if (isLoading) {
-    return <div>로딩 중....</div>;
-  }
+  // if (isLoading) {
+  //   return <div>로딩 중....</div>;
+  // }
 
   if (error) {
     return <div>{error.message}</div>;

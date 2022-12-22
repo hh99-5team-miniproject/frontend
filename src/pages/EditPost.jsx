@@ -75,10 +75,12 @@ const EditPost = () => {
               카테고리를 선택해주세요
             </option>
             <option value="집중하고 싶을 때">집중하고 싶을 때</option>
-            <option value="잠깨고 싶을 때">잠깨고 싶을 때</option>
+            <option value="잠 깨고 싶을 때">잠 깨고 싶을 때</option>
             <option value="에러가 뜰 때">에러가 뜰 때</option>
             <option value="TIL or WIL 작성할 때">TIL/WIL 작성할 때</option>
-            <option value="팀원과 트러블 있을 때">팀원과 트러블 있을 때</option>
+            <option value="팀원과 트러블이 있을 때">
+              팀원과 트러블이 있을 때
+            </option>
           </Select>
         </Second>
         <Content>

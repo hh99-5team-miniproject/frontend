@@ -72,9 +72,9 @@ const Detail = () => {
     }
   };
 
-  if (isLoading) {
-    return <div>로딩 중....</div>;
-  }
+  // if (isLoading) {
+  //   return <div>로딩 중....</div>;
+  // }
   console.log(isLogin);
 
   // if (error) {

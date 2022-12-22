@@ -55,6 +55,14 @@ function Header() {
             >
               로그아웃
             </button>
+            <button
+              className="headerTopButton"
+              onClick={() => {
+                navigate("/exit");
+              }}
+            >
+              회원 탈퇴
+            </button>
           </div>
         ) : (
           <button
