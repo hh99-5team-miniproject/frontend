@@ -1,35 +1,35 @@
-# 🎶 프로젝트 이름 : Coding Vibe
+# 🐬 프로젝트 이름 : Coding Vibe
 
 코딩하면서 듣기 좋은 노래들을 상황에 따라 공유할 수 있는 커뮤니티 사이트
 
 
 
-## 🎶 notion 링크
+##  notion 링크
 
 https://www.notion.so/Coding-Vibe-Mini-Project-ce76b6b3e4594016b5fe411a7a695b38
 
 
 
-## 🎶 개발기간
+##  개발기간
 
 2022년 12월 16일 ~ 2022년 12월 22일
 
 
 
-## 🎶 기술 스택
+##  기술 스택
 
 redux toolkit, styled component, 
 
 
 
-## 🎶 FE 팀원
+##  FE 팀원
 
 - 최유정 : 
 - 김세연 : https://github.com/saeyeonKim
 
 
 
-## 🎶 구현한 기능
+##  구현한 기능
 
 1. 유튜브 링크를 썸네일로 전환하여 화면 마운트 시 썸네일 노출
 2. 헤더와 좌측 메뉴바를 컴포넌트로 분리하여 불필요한 재렌더링 방지
