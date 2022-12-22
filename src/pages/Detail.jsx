@@ -9,6 +9,7 @@ import {
   __postLike,
   __deletePost,
 } from "../redux/modules/postSlice";
+import Categorybtn from "../components/Categorybtn";
 
 const Detail = () => {
   const navigate = useNavigate();
@@ -93,6 +94,8 @@ const Detail = () => {
 
   return (
     <Stwrap>
+      <Categorybtn />
+      <Username>😺 작성자 : {post.nickname} 님</Username>
       <Title>{post.title}</Title>
 
       <Videoarea
@@ -149,6 +152,11 @@ const Title = styled.div`
   color: white;
   margin-bottom: 20px;
   width: 850px;
+`;
+const Username = styled.div`
+  margin-bottom: 10px;
+  width: 850px;
+  text-align: left;
 `;
 const Videoarea = styled.iframe`
   width: 850px;
