@@ -24,7 +24,7 @@ redux toolkit, styled component,
 
 ##  FE 팀원
 
-- 최유정 : 
+- 최유정 : https://github.com/headwing
 - 김세연 : https://github.com/saeyeonKim
 
 
