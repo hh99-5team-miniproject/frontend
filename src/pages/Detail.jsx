@@ -9,11 +9,8 @@ import {
   __postLike,
   __deletePost,
 } from "../redux/modules/postSlice";
-<<<<<<< HEAD
 import Heart from "../components/Heart";
-=======
 import Categorybtn from "../components/Categorybtn";
->>>>>>> 7cdd577c27f76ac300f33266e474e88553e884d4
 
 const Detail = () => {
   const navigate = useNavigate();
