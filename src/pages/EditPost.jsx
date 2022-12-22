@@ -14,11 +14,12 @@ const EditPost = () => {
   const [youtubeUrl, setYoutubeUrl] = useState("");
   const { id } = useParams();
 
+  const selected = useSelector((state) => state.post.post);
+  const editPostError = useSelector((state) => state.post.editPostError);
+
   useEffect(() => {
     dispatch(__getPost(Number(id)));
   }, [dispatch]);
-
-  const selected = useSelector((state) => state.post.post);
 
   useEffect(() => {
     if (selected) {
@@ -37,8 +38,6 @@ const EditPost = () => {
       category: category,
     };
     dispatch(__editPost([newPost, id]));
-    // navigate(`/category/${newPost.category}`);
-    window.location.href = `/category/${newPost.category}`;
     console.log(newPost);
   };
 

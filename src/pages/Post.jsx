@@ -17,7 +17,6 @@ const Post = () => {
   });
   const onClickAddPostHandler = () => {
     console.log(addPost);
-    // dispatch(__addPost(addPost));
 
     if (addPost.title === "") {
       alert("제목을 입력해주세요.");
@@ -29,7 +28,6 @@ const Post = () => {
       alert("내용을 입력해주세요.");
     } else {
       dispatch(__addPost(addPost));
-      navigate(`/category/${addPost.category}`);
     }
     //값보다 렌더링이 빨리될 경우 값이 안 들어옴. 새로고침하면 생김.
 

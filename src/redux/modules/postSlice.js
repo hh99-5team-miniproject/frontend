@@ -11,6 +11,7 @@ const initialState = {
   isLogin: false,
   isLoading: false,
   postError: null,
+  editPostError: null,
   error: null,
 };
 
@@ -60,7 +61,7 @@ export const __addPost = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await instance.post("/api/posts", payload);
-      return thunkAPI.fulfillWithValue(data);
+      return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -171,11 +172,13 @@ export const postSlice = createSlice({
       state.posts = state.posts.filter(
         (post) => post.postId !== action.payload
       );
+      window.location.href = "/";
     },
     [__deletePost.rejected]: (state, action) => {
       state.isLoading = false;
       state.postError = action.payload;
       console.log(action.payload);
+      alert(action.payload.response.data.errorMessage);
     },
 
     [__addPost.pending]: (state) => {
@@ -184,11 +187,12 @@ export const postSlice = createSlice({
     [__addPost.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.posts.push(action.payload);
+      window.location.href = `/category/${action.payload.category}`;
     },
     [__addPost.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
-      // alert(action.payload.response.data.errorMessage);
+      alert(action.payload.response.data.errorMessage);
     },
 
     [__editPost.pending]: (state) => {
@@ -197,10 +201,12 @@ export const postSlice = createSlice({
     [__editPost.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.post = action.payload;
+      window.location.href = `/category/${action.payload[0].category}`;
     },
     [__editPost.rejected]: (state, action) => {
       state.isLoading = false;
-      state.error = action.payload;
+      state.editPostError = action.payload;
+      alert(action.payload.response.data.errorMessage);
     },
 
     [__getCategoryPost.pending]: (state) => {

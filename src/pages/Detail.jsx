@@ -62,12 +62,12 @@ const Detail = () => {
   const onClickDeletePostHandler = () => {
     if (isLogin === true) {
       dispatch(__deletePost(id));
-      if (postError) {
-        console.log(postError.response.data.errorMessage);
-        alert(postError.response.data.errorMessage);
-      } else {
-        navigate("/");
-      }
+      // if (postError !== null) {
+      //   // console.log(postError.response.data.errorMessage);
+      //   alert(postError.response.data.errorMessage);
+      // } else {
+      //   navigate("/");
+      // }
       // 갈라서 하려면 에러를 유형별로 추가
     } else {
       alert("로그인 후 이용가능합니다.");
@@ -171,7 +171,6 @@ const Heart = styled.div`
 const Text = styled.div`
   width: 850px;
   height: 200px;
-  border: 1px solid grey;
   margin-top: 20px;
   background-color: transparent;
   text-underline-offset: inherit;

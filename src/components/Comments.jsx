@@ -38,7 +38,7 @@ const Comments = ({ isLogin }) => {
   console.log(comments);
   return (
     <Wrap>
-      <Reviews>Comments</Reviews>
+      <Reviews>✨Comments</Reviews>
 
       {comments.map((comment) => (
         <EditComment comment={comment} isLogin={isLogin} />

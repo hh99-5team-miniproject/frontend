@@ -12,7 +12,6 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLogin } = useSelector((state) => state.post);
-  // console.log("로그인창 이즈로그인", isLogin);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -21,13 +20,8 @@ const Login = () => {
       password: password,
     })
       .then((res) => {
-        // 예시로 작성한 것임!!!
-        console.log("로그인 성공");
-        console.log(res.headers.authorization);
-        console.log(res.data.nickname);
         localStorage.setItem("id", res.headers.authorization);
         localStorage.setItem("nickname", res.data.nickname);
-        // navigate("/");
         window.location.href = "/";
       })
       .catch((error) => {
@@ -94,7 +88,7 @@ const Stwrap = styled.div`
 const Title = styled.div`
   font-size: 80px;
   font-weight: lighter;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -112,7 +106,7 @@ const Container = styled.div`
   font-size: 20px;
   border: 3px solid white;
   border-radius: 30px;
-  padding: 40px 50px 50px 50px;
+  padding: 35px 50px 50px 50px;
 
   display: flex;
   flex-direction: column;
