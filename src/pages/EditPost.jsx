@@ -14,6 +14,13 @@ const EditPost = () => {
   const [youtubeUrl, setYoutubeUrl] = useState("");
   const { id } = useParams();
 
+  const [editPost, seteditPost] = useState({
+    title: "",
+    youtubeUrl: "",
+    content: "",
+    category: "",
+  });
+
   const selected = useSelector((state) => state.post.post);
   const editPostError = useSelector((state) => state.post.editPostError);
 
@@ -37,8 +44,20 @@ const EditPost = () => {
       content: content,
       category: category,
     };
-    dispatch(__editPost([newPost, id]));
+    //dispatch(__editPost([newPost, id]));
     console.log(newPost);
+
+    if (newPost.title === "") {
+      alert("제목을 입력해주세요.");
+    } else if (newPost.youtubeUrl === "") {
+      alert("URL을 입력해주세요.");
+    } else if (newPost.category === "") {
+      alert("카테고리를 선택해주세요.");
+    } else if (newPost.content === "") {
+      alert("내용을 입력해주세요.");
+    } else {
+      dispatch(__editPost([newPost]));
+    }
   };
 
   return (

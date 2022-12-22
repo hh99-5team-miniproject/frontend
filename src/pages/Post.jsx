@@ -29,7 +29,6 @@ const Post = () => {
     } else {
       dispatch(__addPost(addPost));
     }
-    //값보다 렌더링이 빨리될 경우 값이 안 들어옴. 새로고침하면 생김.
 
     // if (error) {
     //   alert(error.response.data.errorMessage);
