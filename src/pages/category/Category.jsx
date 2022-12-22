@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./category.css";
 import { __getCategoryPost } from "../../redux/modules/postSlice";
+import Categorybtn from "../../components/Categorybtn";
 
 const Category = () => {
   const navigate = useNavigate();
@@ -37,24 +38,8 @@ const Category = () => {
 
   return (
     <div className="categoryMain">
-      <div className="menu">
-        <div onClick={() => navigate("/category/집중하고 싶을 때")}>
-          {"집중하고\n싶을 때"}
-        </div>
-        <div onClick={() => navigate("/category/잠 깨우고 싶을 때")}>
-          {"잠 깨우고\n싶을 때"}
-        </div>
-        <div onClick={() => navigate("/category/에러가 뜰 때")}>
-          {"에러가뜰 때"}
-        </div>
-        <div onClick={() => navigate("/category/TIL or WIL 작성할 때")}>
-          {"TIL/WIL\n작성할 때"}
-        </div>
-        <div onClick={() => navigate("/category/팀원과 트러블 있을 때")}>
-          {"팀원과 트러블\n있을 때"}
-        </div>
-      </div>
-      <div className="best">
+      <Categorybtn />
+      <div className="categorycards">
         <h2>{id}</h2>
         <div className="bestCards">
           {categoryPosts.map((post, i) => {
