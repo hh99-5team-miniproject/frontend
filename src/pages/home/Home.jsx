@@ -70,17 +70,17 @@ const Home = () => {
 
       <div className="best">
         <h2>Best Playlist Top 3🏆️</h2>
-        <div className="bestCards">
+        <div className="homeBestCards">
           {posts?.map((post, i) => {
             return (
               <div
-                className="bestCard"
+                className="homeBestCard"
                 onClick={() => navigate(`/detail/${post.postId}`)}
               >
-                <img className="bestCardImage" src={thumbnail[i]}></img>
-                <div className="bestCardInfo">
+                <img className="homeBestCardImage" src={thumbnail[i]}></img>
+                <div className="homeBestCardInfo">
                   <div>{post.title}</div>
-                  <div className="bestCardInfoLikeCount">
+                  <div className="homeBestCardInfoLikeCount">
                     ❤️ {post.likeCount}
                   </div>
                 </div>

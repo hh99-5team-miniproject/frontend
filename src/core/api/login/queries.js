@@ -29,8 +29,8 @@ export const postSignup = async (post) => {
   return data;
 };
 
-export const deleteUser = async (post) => {
-  const data = await instance.delete(`/api/deleteUser/${post}`);
+export const deleteUser = async (password) => {
+  const data = await instance.delete(`/api/deleteUser/${password}`);
   alert(data.response.data.errorMessage);
   console.log("회원 탈퇴 성공!");
   return data;

@@ -22,7 +22,6 @@ const EditPost = () => {
   });
 
   const selected = useSelector((state) => state.post.post);
-  const editPostError = useSelector((state) => state.post.editPostError);
 
   useEffect(() => {
     dispatch(__getPost(Number(id)));
@@ -51,12 +50,12 @@ const EditPost = () => {
       alert("제목을 입력해주세요.");
     } else if (newPost.youtubeUrl === "") {
       alert("URL을 입력해주세요.");
-    } else if (newPost.category === "") {
+    } else if (newPost.category === undefined) {
       alert("카테고리를 선택해주세요.");
     } else if (newPost.content === "") {
       alert("내용을 입력해주세요.");
     } else {
-      dispatch(__editPost([newPost]));
+      dispatch(__editPost([newPost, id]));
     }
   };
 
@@ -88,6 +87,7 @@ const EditPost = () => {
             value={category}
             onChange={(e) => {
               setCategory(e.target.value);
+              // console.log(category);
             }}
           >
             <option value="" selected>
