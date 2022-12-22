@@ -9,6 +9,7 @@ import {
   __postLike,
   __deletePost,
 } from "../redux/modules/postSlice";
+import Heart from "../components/Heart";
 
 const Detail = () => {
   const navigate = useNavigate();
@@ -21,19 +22,19 @@ const Detail = () => {
   const post = useSelector(
     (state) => state.post.post // 하나가 바뀌어도 다 바뀐다.
   );
-  const error = useSelector(
-    (state) => state.post.error // 하나가 바뀌어도 다 바뀐다.
-  );
-  const likeCount = useSelector(
-    (state) => state.post.likeCount // 하나가 바뀌어도 다 바뀐다.
-  );
-  const checkPostLike = useSelector(
-    (state) => state.post.checkPostLike // 하나가 바뀌어도 다 바뀐다.
-  );
+  // const error = useSelector(
+  //   (state) => state.post.error // 하나가 바뀌어도 다 바뀐다.
+  // );
+  // const likeCount = useSelector(
+  //   (state) => state.post.likeCount // 하나가 바뀌어도 다 바뀐다.
+  // );
+  // const checkPostLike = useSelector(
+  //   (state) => state.post.checkPostLike // 하나가 바뀌어도 다 바뀐다.
+  // );
 
-  const postError = useSelector(
-    (state) => state.post.postError // 하나가 바뀌어도 다 바뀐다.
-  );
+  // const postError = useSelector(
+  //   (state) => state.post.postError // 하나가 바뀌어도 다 바뀐다.
+  // );
 
   const [isLogin, setIslogin] = useState(false);
 
@@ -46,13 +47,17 @@ const Detail = () => {
     dispatch(__getPost(Number(id)));
   }, [dispatch, id]);
 
-  // console.log(post);
+  console.log(post);
   // console.log(checkPostLike);
   // console.log(likeCount);
 
-  const onClickEditPostHandler = () => {
+  const onClickEditPostHandler = (nickname) => {
     if (isLogin === true) {
-      navigate(`/editpost/${id}`);
+      if (nickname === localStorage.getItem("nickname")) {
+        navigate(`/editpost/${id}`);
+      } else {
+        alert("타인의 게시물을 수정할 수 없습니다.");
+      }
     } else {
       alert("로그인 후 이용가능합니다.");
     }
@@ -61,24 +66,9 @@ const Detail = () => {
   const onClickDeletePostHandler = () => {
     if (isLogin === true) {
       dispatch(__deletePost(id));
-      // if (postError !== null) {
-      //   // console.log(postError.response.data.errorMessage);
-      //   alert(postError.response.data.errorMessage);
-      // } else {
-      //   navigate("/");
-      // }
-      // 갈라서 하려면 에러를 유형별로 추가
     } else {
       alert("로그인 후 이용가능합니다.");
     }
-  };
-
-  const onClickloginHeartHandler = () => {
-    dispatch(__postLike(id));
-  };
-
-  const onClickNonloginHeartHandler = () => {
-    alert("로그인 시 이용가능합니다.");
   };
 
   if (isLoading) {
@@ -107,19 +97,20 @@ const Detail = () => {
 
       <Text>{post.content}</Text>
       <Btns>
-        {isLogin === true ? (
-          <Heart onClick={onClickloginHeartHandler}>
-            <div>{checkPostLike === true ? "🤍" : "❤️"}</div>
-            <div>{likeCount}</div>
-          </Heart>
+        {/* {isLogin === true ? (
+          <Heart onClick={onClickloginHeartHandler} />
         ) : (
-          <Heart onClick={onClickNonloginHeartHandler}>
-            <div>🤍</div>
-            <div>{likeCount}</div>
-          </Heart>
-        )}
+          <Heart onClick={onClickNonloginHeartHandler} />
+        )} */}
+        <Heart />
         <Btn>
-          <Stbtn onClick={onClickEditPostHandler}>수정</Stbtn>
+          <Stbtn
+            onClick={() => {
+              onClickEditPostHandler(post.nickname);
+            }}
+          >
+            수정
+          </Stbtn>
           <Stbtn onClick={onClickDeletePostHandler}>삭제</Stbtn>
         </Btn>
       </Btns>
@@ -155,11 +146,11 @@ const Videoarea = styled.iframe`
   height: 500px;
   border: 2px solid black;
 `;
-const Heart = styled.div`
-  display: flex;
-  color: white;
-  font-size: 30px;
-`;
+// const Heart = styled.div`
+//   display: flex;
+//   color: white;
+//   font-size: 30px;
+// `;
 const Text = styled.div`
   width: 850px;
   height: 200px;

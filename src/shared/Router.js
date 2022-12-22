@@ -9,6 +9,7 @@ import Login from "../pages/Login";
 import Post from "../pages/Post";
 import Register from "../pages/Register";
 import EditPost from "../pages/EditPost";
+import Exit from "../pages/Exit";
 
 const Router = () => {
   return (
@@ -17,6 +18,7 @@ const Router = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/exit" element={<Exit />} />
           <Route path="/" element={<Home />} />
           <Route path="/detail/:id" element={<Detail />} />
           <Route path="/post" element={<Post />} />
