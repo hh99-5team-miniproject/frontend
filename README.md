@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+# 프로젝트 이름 : Coding Vibe
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+코딩하면서 듣기 좋은 노래들을 상황에 따라 공유할 수 있는 커뮤니티 사이트
 
-## Available Scripts
+## notion 링크
 
-In the project directory, you can run:
+https://www.notion.so/Coding-Vibe-Mini-Project-ce76b6b3e4594016b5fe411a7a695b38
 
-### `npm start`
+### 개발기간
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+2022년 12월 16일 ~ 2022년 12월 22일
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 기술 스택
 
-### `npm test`
+redux toolkit, styled component, 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### FE 팀원
 
-### `npm run build`
+- 최유정 : 
+- 김세연 : https://github.com/saeyeonKim
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 구현한 기능
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. 유튜브 링크를 썸네일로 전환하여 화면 마운트 시 썸네일 노출
+2. 헤더와 좌측 메뉴바를 컴포넌트로 분리하여 불필요한 재렌더링 방지
+3. 좋아요 버튼 역시 컴포넌트로 분리하여 불필요한 재렌더링 방지
+4. 로그아웃 시 혹은 로그인을 안한 경우 게시물 및 댓글에 달린 수정, 삭제 버튼, 글 작성 버튼, 댓글 등록 버튼, 좋아요 클릭 시 "로그인 후 이용가능합니다" alert 출력
+5. 로그인 시 자신의 게시물 및 댓글 등록, 수정, 삭제 가능, 타인의 게시물 수정 및 삭제 시도 시 alert 출력(수정은 프론트에서 메세지 띄우고, 삭제는 서버에러에서 오는 메세지를 띄움), 타인의 댓글 수정 삭제 역시 alert(서버 에러에서 오는 메세지)
+6. 게시물 작성 시 제목, 내용, url 미입력시 혹은 카테고리 미선택시 alert(input에서 작성된 값으로 판단), 유튜브url이 아닌 잘못된 url 입력 시 alert(서버 에러에서 오는 메세지)
+-> 게시물 수정에도 마찬가지
+7. 로그인 시 성공이면 성공 alert, 실패 시 서버에서 오는 에러 alert(ex. 회원을 찾을 수 없습니다.) -> 회원가입 시에도 마찬가지
+8. css 파일과 styled component 혼용 -> 조건에 따라 달라지는 경우 styled component 사용
+9. 배포시 aws는 내부 또는 외부 명령 실행할 수 있는 프로그램 또는 배치 파일이 아닙니다. -> yarn upgrade 명령어 입력 후 배포 명령어 입력
