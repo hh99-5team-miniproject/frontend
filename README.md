@@ -38,7 +38,7 @@ redux toolkit, styled component, react-router-dom, axios
 - css 파일과 styled component 혼용, 조건에 따라 달라지는 경우 styled component 사용
 - 배포시 "aws는 내부 또는 외부 명령 실행할 수 있는 프로그램 또는 배치 파일이 아닙니다."라는 에러의 경우 yarn upgrade 명령어 입력 후 배포 명령어 입력
 
-### 경고창 뜨는 case
+### alert 예외처리
 - 로그아웃한 경우 혹은 로그인을 안한 경우 게시물 및 댓글에 달린 수정, 삭제 버튼, 글 작성 버튼, 댓글 등록 버튼, 좋아요 클릭 시
 - 타인의 게시물 수정 및 삭제 시도 시
 - 타인의 댓글 수정 삭제 시도 시
